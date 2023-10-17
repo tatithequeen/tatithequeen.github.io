@@ -10,40 +10,54 @@
     <div id="screen1">
         <h1>Welcome, Joe</h1>
         <p>1-1</p>
+        <div class="button-container">
         <button class="button"
         onclick="showScreen2()">Deal</button>
+        </div>
     </div>
     
  <div id="screen2" style="display: none;">
         <h2>First Hand</h2>
+          <div class="button-container">
         <button class="button"
         onclick="showScreen3('win')">Win</button>
         <button class="button"
         onclick="showScreen3('lose')">Lose</button>
+        </div>
+          <div class="button-container">
          <button class="button"
-        onclick="goBack()">Go Back</button>
+        onclick="StartOver()">Start Over</button>
+        </div>
     </div>
 
     <div id="screen3" style="display: none;">
         <h2 id="resultText"></h2>
           <h2>Second Hand</h2>
+            <div class="button-container">
         <button class="button"
         onclick="showScreen4('win')">Win</button>
         <button class="button"
         onclick="showScreen4('lose')">Lose</button>
+        </div>
+          <div class="button-container">
          <button class="button"
-        onclick="goBack()">Go Back</button>
+        onclick="StartOver()">Start Over</button>
+        </div>
     </div>
     
      <div id="screen4" style="display: none;">
         <h2 id="resultText1"></h2>
           <h2>Third Hand</h2>
+            <div class="button-container">
         <button class="button"
         onclick="showScreen5('win')">Win</button>
         <button class="button"
         onclick="showScreen5('lose')">Lose</button>
+        </div>
+          <div class="button-container">
          <button class="button"
-        onclick="goBack()">Go Back</button>
+        onclick="StartOver()">Start Over</button>
+        </div>
     </div>
 
     <!-- Continue adding screens as needed -->
@@ -75,7 +89,7 @@
 
         // Add similar functions for the other screens as needed
         
-        function goBack() {
+        function StartOver() {
             document.getElementById('screen2').style.display = 'none';
             document.getElementById('screen3').style.display = 'none';
             document.getElementById('screen4').style.display = 'none';

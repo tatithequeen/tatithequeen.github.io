@@ -9,6 +9,12 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin: 5px;
+}
+
+.button-container {
+	display: flex;
+	justify-content: center;
 }
 
 .button:hover {
