@@ -12,32 +12,40 @@
         <p>1-1</p>
         <button class="button"
         onclick="showScreen2()">Deal</button>
+        <button class="button"
+        onclick="goBack()">Go Back</button>
     </div>
     
  <div id="screen2" style="display: none;">
-        <h2>Choose one:</h2>
+        <h2>First Hand</h2>
         <button class="button"
         onclick="showScreen3('win')">Win</button>
         <button class="button"
         onclick="showScreen3('lose')">Lose</button>
+         <button class="button"
+        onclick="goBack()">Go Back</button>
     </div>
 
     <div id="screen3" style="display: none;">
         <h2 id="resultText"></h2>
-          <h2>Choose one:</h2>
+          <h2>Second Hand</h2>
         <button class="button"
         onclick="showScreen4('win')">Win</button>
         <button class="button"
         onclick="showScreen4('lose')">Lose</button>
+         <button class="button"
+        onclick="goBack()">Go Back</button>
     </div>
     
      <div id="screen4" style="display: none;">
         <h2 id="resultText1"></h2>
-          <h2>Choose one:</h2>
+          <h2>Third Hand</h2>
         <button class="button"
         onclick="showScreen5('win')">Win</button>
         <button class="button"
         onclick="showScreen5('lose')">Lose</button>
+         <button class="button"
+        onclick="goBack()">Go Back</button>
     </div>
 
     <!-- Continue adding screens as needed -->
@@ -68,6 +76,12 @@
         }
 
         // Add similar functions for the other screens as needed
+        
+        function goBack() {
+            document.getElementById('screen2').style.display = 'none';
+            document.getElementById('screen3').style.display = 'none';
+            document.getElementById('screen1').style.display = 'block';
+        }
 
     </script>
 </body>
