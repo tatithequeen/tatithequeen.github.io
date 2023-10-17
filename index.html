@@ -1,104 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="styles.css">
-    <title>Baccarat</title>
+    <title>Baccarat Flow Program</title>
 </head>
 <body>
-    <div id="screen1">
-        <h1>Welcome, Joe</h1>
-        <p>1-1</p>
-        <div class="button-container">
-        <button class="button"
-        onclick="showScreen2()">Deal</button>
-        </div>
-    </div>
-    
- <div id="screen2" style="display: none;">
-        <h2>First Hand</h2>
-          <div class="button-container">
-        <button class="button"
-        onclick="showScreen3('win')">Win</button>
-        <button class="button"
-        onclick="showScreen3('lose')">Lose</button>
-        </div>
-          <div class="button-container">
-         <button class="button"
-        onclick="StartOver()">Start Over</button>
-        </div>
-    </div>
-
-    <div id="screen3" style="display: none;">
-        <h2 id="resultText"></h2>
-          <h2>Second Hand</h2>
-            <div class="button-container">
-        <button class="button"
-        onclick="showScreen4('win')">Win</button>
-        <button class="button"
-        onclick="showScreen4('lose')">Lose</button>
-        </div>
-          <div class="button-container">
-         <button class="button"
-        onclick="StartOver()">Start Over</button>
-        </div>
-    </div>
-    
-     <div id="screen4" style="display: none;">
-        <h2 id="resultText1"></h2>
-          <h2>Third Hand</h2>
-            <div class="button-container">
-        <button class="button"
-        onclick="showScreen5('win')">Win</button>
-        <button class="button"
-        onclick="showScreen5('lose')">Lose</button>
-        </div>
-          <div class="button-container">
-         <button class="button"
-        onclick="StartOver()">Start Over</button>
-        </div>
-    </div>
-
-    <!-- Continue adding screens as needed -->
+    <h2>Current State: <span id="currentState">1-1</span></h2>
+    <button onclick="playRound('lose')">Lose</button>
+    <button onclick="playRound('win')">Win</button>
 
     <script>
-        function showScreen2() {
-            document.getElementById('screen1').style.display = 'none';
-            document.getElementById('screen2').style.display = 'block';
-        }
+        let state = "1-1";
+        let consecutiveLosses = 0;
 
-        function showScreen3(result) {
-            document.getElementById('screen2').style.display = 'none';
-            document.getElementById('screen3').style.display = 'block';
-            if (result === 'win') {
-                document.getElementById('resultText').innerText = 'Congratulations! 1-1';
-            } else if (result === 'lose') {
-                document.getElementById('resultText').innerText = 'Sorry! 1-1';
+        function playRound(outcome) {
+            switch (state) {
+                case "1-1":
+                    if (outcome === "lose") {
+                        consecutiveLosses++;
+                        if (consecutiveLosses === 2) {
+                            state = "2-2";
+                            consecutiveLosses = 0;
+                        }
+                    } else if (outcome === "win") {
+                        state = "1-1";
+                        consecutiveLosses = 0;
+                    }
+                    break;
+                case "Breakout":
+                    if (outcome === "lose") {
+                        state = "2-2";
+                    }
+                    break;
+                case "2-2":
+                    if (outcome === "4 Down") {
+                        state = "Breakout";
+                    } else if (outcome === "3 Across") {
+                        state = "1-1";
+                    }
+                    break;
             }
+            document.getElementById('currentState').innerText = state;
         }
-		function showScreen4(result) {
-            document.getElementById('screen3').style.display = 'none';
-            document.getElementById('screen4').style.display = 'block';
-            if (result === 'win') {
-                document.getElementById('resultText1').innerText = 'Congratulations! 1-1';
-            } else if (result === 'lose') {
-                document.getElementById('resultText1').innerText = 'Sorry! 2-2';
-            }
-        }
-
-        // Add similar functions for the other screens as needed
-        
-        function StartOver() {
-            document.getElementById('screen2').style.display = 'none';
-            document.getElementById('screen3').style.display = 'none';
-            document.getElementById('screen4').style.display = 'none';
-            document.getElementById('screen1').style.display = 'block';
-        }
-
     </script>
-</body>
-</html>
-
 </body>
 </html>
