@@ -13,18 +13,20 @@
         <button class="button"
         onclick="showScreen2()">Deal</button>
     </div>
-    <div id="screen2" style="display: none;">
+    
+ <div id="screen2" style="display: none;">
         <h2>Choose one:</h2>
-        <button class="button"
-        onclick="showResult('win')">Win</button>
-        <button class="button"
-        onclick="showResult('lose')">Lose</button>
+        <button onclick="showScreen3('win')">Win</button>
+        <button onclick="showScreen3('lose')">Lose</button>
     </div>
+
     <div id="screen3" style="display: none;">
-        <h1 id="resultText"></h1>
-          <button class="button"
-        onclick="showScreen3()">Deal</button>
+        <h2 id="resultText"></h2>
+        <button onclick="showScreen4('win')">Win</button>
+        <button onclick="showScreen4('lose')">Lose</button>
     </div>
+
+    <!-- Continue adding screens as needed -->
 
     <script>
         function showScreen2() {
@@ -32,32 +34,21 @@
             document.getElementById('screen2').style.display = 'block';
         }
 
-        function showResult(result) {
+        function showScreen3(result) {
             document.getElementById('screen2').style.display = 'none';
             document.getElementById('screen3').style.display = 'block';
             if (result === 'win') {
-                document.getElementById('resultText').innerText = 'Congratulations! 1-1';
+                document.getElementById('resultText').innerText = 'Congratulations!';
             } else if (result === 'lose') {
-                document.getElementById('resultText').innerText = 'Sorry! 1-1';
+                document.getElementById('resultText').innerText = 'Sorry!';
             }
-        }
-    </script>
-    
-    <script>
-        function showScreen3() {
-            document.getElementById('screen1').style.display = 'none';
-            document.getElementById('screen2').style.display = 'block';
         }
 
-        function showResult(result) {
-            document.getElementById('screen2').style.display = 'none';
-            document.getElementById('screen3').style.display = 'block';
-            if (result === 'win') {
-                document.getElementById('resultText').innerText = 'Congratulations! 1-1';
-            } else if (result === 'lose') {
-                document.getElementById('resultText').innerText = 'Sorry! 2-2';
-            }
-        }
+        // Add similar functions for the other screens as needed
+
     </script>
+</body>
+</html>
+
 </body>
 </html>
