@@ -10,41 +10,25 @@
     <button id="3Down" style="display:none" onclick="playRound('3 Down')">3 Down</button>
     <button id="4Across" style="display:none" onclick="playRound('4 Across')">4 Across</button>
 
-    <h2>Wins and Losses</h2>
-    <table id="scoreTable" border="1">
+    <h2>Rounds Summary</h2>
+    <table id="roundsTable" border="1">
         <tr>
+            <th>Round</th>
             <th>State</th>
             <th>Wins</th>
             <th>Losses</th>
         </tr>
-        <tr>
-            <td>1-1</td>
-            <td id="wins1">0</td>
-            <td id="losses1">0</td>
-        </tr>
-        <tr>
-            <td>2-2</td>
-            <td id="wins2">0</td>
-            <td id="losses2">0</td>
-        </tr>
-        <tr>
-            <td>Breakout</td>
-            <td id="winsBreakout">0</td>
-            <td id="lossesBreakout">0</td>
-        </tr>
-        <tr>
-            <td>ComeBack</td>
-            <td id="winsComeBack">0</td>
-            <td id="lossesComeBack">0</td>
-        </tr>
     </table>
+    <button id="startOver" style="display:none" onclick="resetGame()">Start Over</button>
 
     <script>
+        let rounds = 0;
         let state = "1-1";
         let consecutiveLosses = 0;
         let wins1 = 0, losses1 = 0, wins2 = 0, losses2 = 0, winsBreakout = 0, lossesBreakout = 0, winsComeBack = 0, lossesComeBack = 0;
 
         function playRound(outcome) {
+            rounds++;
             switch (state) {
                 case "1-1":
                     if (outcome === "lose") {
@@ -53,6 +37,9 @@
                         if (consecutiveLosses === 2) {
                             state = "2-2";
                             consecutiveLosses = 0;
+                        }
+                        if (consecutiveLosses === 1 && state === "1-1") {
+                            state = "Breakout";
                         }
                     } else if (outcome === "win") {
                         wins1++;
@@ -87,8 +74,26 @@
                     }
                     break;
             }
+            if (rounds <= 20) {
+                updateRoundsTable(rounds, state, wins1, losses1);
+            } else {
+                document.getElementById('startOver').style.display = "inline";
+            }
             document.getElementById('currentState').innerText = state;
             updateScoreTable();
+        }
+
+        function updateRoundsTable(round, state, wins, losses) {
+            let table = document.getElementById('roundsTable');
+            let row = table.insertRow(-1);
+            let cell1 = row.insertCell(0);
+            let cell2 = row.insertCell(1);
+            let cell3 = row.insertCell(2);
+            let cell4 = row.insertCell(3);
+            cell1.innerHTML = round;
+            cell2.innerHTML = state;
+            cell3.innerHTML = wins;
+            cell4.innerHTML = losses;
         }
 
         function updateScoreTable() {
@@ -101,6 +106,13 @@
             document.getElementById('winsComeBack').innerText = winsComeBack;
             document.getElementById('lossesComeBack').innerText = lossesComeBack;
         }
+
+        function resetGame() {
+            rounds = 0;
+            document.getElementById('roundsTable').innerHTML = "<tr><th>Round</th><th>State</th><th>Wins</th><th>Losses</th></tr>";
+            document.getElementById('startOver').style.display = "none";
+        }
     </script>
 </body>
 </html>
+
