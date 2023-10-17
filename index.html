@@ -51,6 +51,7 @@
                     if (outcome === "lose") {
                         lossesBreakout++;
                         state = (consecutiveLosses < 2) ? "ComeBack" : "2-2";
+                        consecutiveLosses = 0;
                     }
                     break;
                 case "2-2":
@@ -75,12 +76,38 @@
                     break;
             }
             if (rounds <= 20) {
-                updateRoundsTable(rounds, state, wins1, losses1);
+                updateRoundsTable(rounds, state, getWins(state), getLosses(state));
             } else {
                 document.getElementById('startOver').style.display = "inline";
             }
             document.getElementById('currentState').innerText = state;
             updateScoreTable();
+        }
+
+        function getWins(state) {
+            switch (state) {
+                case "1-1":
+                    return wins1;
+                case "2-2":
+                    return wins2;
+                case "Breakout":
+                    return winsBreakout;
+                case "ComeBack":
+                    return winsComeBack;
+            }
+        }
+
+        function getLosses(state) {
+            switch (state) {
+                case "1-1":
+                    return losses1;
+                case "2-2":
+                    return losses2;
+                case "Breakout":
+                    return lossesBreakout;
+                case "ComeBack":
+                    return lossesComeBack;
+            }
         }
 
         function updateRoundsTable(round, state, wins, losses) {
@@ -115,4 +142,3 @@
     </script>
 </body>
 </html>
-
