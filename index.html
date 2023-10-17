@@ -16,14 +16,26 @@
     
  <div id="screen2" style="display: none;">
         <h2>Choose one:</h2>
-        <button onclick="showScreen3('win')">Win</button>
-        <button onclick="showScreen3('lose')">Lose</button>
+        <button class="button"
+        onclick="showScreen3('win')">Win</button>
+        <button class="button"
+        onclick="showScreen3('lose')">Lose</button>
     </div>
 
     <div id="screen3" style="display: none;">
         <h2 id="resultText"></h2>
-        <button onclick="showScreen4('win')">Win</button>
-        <button onclick="showScreen4('lose')">Lose</button>
+        <button class="button"
+        onclick="showScreen4('win')">Win</button>
+        <button class="button"
+        onclick="showScreen4('lose')">Lose</button>
+    </div>
+    
+     <div id="screen4" style="display: none;">
+        <h2 id="resultText"></h2>
+        <button class="button"
+        onclick="showScreen5('win')">Win</button>
+        <button class="button"
+        onclick="showScreen5('lose')">Lose</button>
     </div>
 
     <!-- Continue adding screens as needed -->
@@ -38,9 +50,18 @@
             document.getElementById('screen2').style.display = 'none';
             document.getElementById('screen3').style.display = 'block';
             if (result === 'win') {
-                document.getElementById('resultText').innerText = 'Congratulations!';
+                document.getElementById('resultText').innerText = 'Congratulations! 1-1';
             } else if (result === 'lose') {
-                document.getElementById('resultText').innerText = 'Sorry!';
+                document.getElementById('resultText').innerText = 'Sorry! 1-1';
+            }
+        }
+		function showScreen4(result) {
+            document.getElementById('screen3').style.display = 'none';
+            document.getElementById('screen4').style.display = 'block';
+            if (result === 'win') {
+                document.getElementById('resultText').innerText = 'Congratulations! 1-1';
+            } else if (result === 'lose') {
+                document.getElementById('resultText').innerText = 'Sorry! 2-2';
             }
         }
 
