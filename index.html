@@ -16,7 +16,7 @@
 <h2>Game Flow</h2>
 
 <div id="buttons">
-  <button id="winButton" onclick="win()">Win</button>
+  <button id="winButton" style="display: none;" onclick="win()">Win</button>
   <button id="loseButton" onclick="lose()">Lose</button>
   <button id="threeAcrossButton" style="display: none;" onclick="threeAcross()">3 Across</button>
   <button id="fourDownButton" style="display: none;" onclick="fourDown()">4 Down</button>
@@ -33,26 +33,21 @@
 <script>
 let round = 1;
 let state = "1-1";
-let consecutiveLosses = 0;
 
 function win() {
   if (state === "Comeback") {
     state = "1-1";
-    consecutiveLosses = 0;
   }
   displayResults();
   checkState();
 }
 
 function lose() {
-  consecutiveLosses++;
-  if (state === "1-1" || state === "Breakout") {
+  if (state === "1-1") {
     state = "Breakout";
-  } else if (state === "Comeback" && consecutiveLosses >= 2) {
+  } else if (state === "Comeback") {
     state = "Breakout";
-  } else if (state === "Comeback" && consecutiveLosses < 2) {
-    state = "Comeback";
-  } else if (state === "2-2") {
+  } else if (state === "Breakout") {
     state = "2-2";
   }
   displayResults();
@@ -78,13 +73,12 @@ function fourDown() {
 function startOver() {
   round = 1;
   state = "1-1";
-  consecutiveLosses = 0;
   displayResults();
   checkState();
 }
 
 function checkState() {
-  document.getElementById("winButton").style.display = "inline";
+  document.getElementById("winButton").style.display = state === "Comeback" ? "inline" : "none";
   document.getElementById("threeAcrossButton").style.display = state === "2-2" ? "inline" : "none";
   document.getElementById("fourDownButton").style.display = state === "2-2" ? "inline" : "none";
 }
