@@ -24,6 +24,7 @@
 
     <div id="screen3" style="display: none;">
         <h2 id="resultText"></h2>
+          <h2>Choose one:</h2>
         <button class="button"
         onclick="showScreen4('win')">Win</button>
         <button class="button"
@@ -31,7 +32,8 @@
     </div>
     
      <div id="screen4" style="display: none;">
-        <h2 id="resultText"></h2>
+        <h2 id="resultText1"></h2>
+          <h2>Choose one:</h2>
         <button class="button"
         onclick="showScreen5('win')">Win</button>
         <button class="button"
@@ -59,9 +61,9 @@
             document.getElementById('screen3').style.display = 'none';
             document.getElementById('screen4').style.display = 'block';
             if (result === 'win') {
-                document.getElementById('resultText').innerText = 'Congratulations! 1-1';
+                document.getElementById('resultText1').innerText = 'Congratulations! 1-1';
             } else if (result === 'lose') {
-                document.getElementById('resultText').innerText = 'Sorry! 2-2';
+                document.getElementById('resultText1').innerText = 'Sorry! 2-2';
             }
         }
 
