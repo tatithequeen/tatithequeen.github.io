@@ -1,141 +1,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Baccarat Flow Program</title>
+<style>
+  table {
+    border-collapse: collapse;
+  }
+  table, th, td {
+    border: 1px solid black;
+  }
+</style>
 </head>
 <body>
-    <h2>Current State: <span id="currentState">1-1</span></h2>
-    <button onclick="playRound('lose')">Lose</button>
-    <button onclick="playRound('win')">Win</button>
-    <button id="3Down" style="display:none" onclick="playRound('3 Down')">3 Down</button>
-    <button id="4Across" style="display:none" onclick="playRound('4 Across')">4 Across</button>
 
-    <h2>Rounds Summary</h2>
-    <table id="roundsTable" border="1">
-        <tr>
-            <th>Round</th>
-            <th>State</th>
-            <th>Wins</th>
-            <th>Losses</th>
-        </tr>
-    </table>
-    <button id="startOver" style="display:none" onclick="resetGame()">Start Over</button>
+<h2>Game Flow</h2>
 
-    <script>
-        let rounds = 0;
-        let state = "1-1";
-        let consecutiveLosses = 0;
-        let wins1 = 0, losses1 = 0, wins2 = 0, losses2 = 0, winsBreakout = 0, lossesBreakout = 0, winsComeBack = 0, lossesComeBack = 0;
+<table id="gameTable">
+  <tr>
+    <th>Round</th>
+    <th>State</th>
+  </tr>
+</table>
 
-        function playRound(outcome) {
-            rounds++;
-            switch (state) {
-                case "1-1":
-                    if (outcome === "lose") {
-                        losses1++;
-                        state = "Breakout";
-                    } else if (outcome === "win") {
-                        state = "1-1";
-                    }
-                    break;
-                case "Breakout":
-                    if (outcome === "lose") {
-                        lossesBreakout++;
-                        consecutiveLosses++;
-                        if (consecutiveLosses === 2) {
-                            state = "2-2";
-                            consecutiveLosses = 0;
-                        }
-                        else{
-                            state = "Breakout";
-                        }
-                    }
-                    break;
-                case "2-2":
-                    document.getElementById('3Down').style.display = "inline";
-                    document.getElementById('4Across').style.display = "inline";
-                    if (outcome === "4 Down") {
-                        losses2++;
-                        state = "Breakout";
-                    } else if (outcome === "3 Across") {
-                        wins2++;
-                        state = "1-1";
-                    }
-                    break;
-                case "ComeBack":
-                    if (outcome === "lose") {
-                        lossesComeBack++;
-                        state = "Breakout";
-                    } else if (outcome === "win") {
-                        winsComeBack++;
-                        state = "1-1";
-                    }
-                    break;
-            }
-            if (rounds <= 20) {
-                updateRoundsTable(rounds, state, getWins(state), getLosses(state));
-            } else {
-                document.getElementById('startOver').style.display = "inline";
-            }
-            document.getElementById('currentState').innerText = state;
-            updateScoreTable();
-        }
+<button onclick="win()">Win</button>
+<button onclick="lose()">Lose</button>
+<button onclick="threeAcross()">3 Across</button>
+<button onclick="fourDown()">4 Down</button>
 
-        function getWins(state) {
-            switch (state) {
-                case "1-1":
-                    return wins1;
-                case "2-2":
-                    return wins2;
-                case "Breakout":
-                    return winsBreakout;
-                case "ComeBack":
-                    return winsComeBack;
-            }
-        }
+<script>
+let round = 1;
+let state = "1-1";
 
-        function getLosses(state) {
-            switch (state) {
-                case "1-1":
-                    return losses1;
-                case "2-2":
-                    return losses2;
-                case "Breakout":
-                    return lossesBreakout;
-                case "ComeBack":
-                    return lossesComeBack;
-            }
-        }
+function win() {
+  if (state === "Comeback") {
+    state = "1-1";
+  } else if (state === "1-1") {
+    state = "Breakout";
+  } else if (state === "2-2") {
+    state = "1-1";
+  }
+  displayResults();
+}
 
-        function updateRoundsTable(round, state, wins, losses) {
-            let table = document.getElementById('roundsTable');
-            let row = table.insertRow(-1);
-            let cell1 = row.insertCell(0);
-            let cell2 = row.insertCell(1);
-            let cell3 = row.insertCell(2);
-            let cell4 = row.insertCell(3);
-            cell1.innerHTML = round;
-            cell2.innerHTML = state;
-            cell3.innerHTML = wins;
-            cell4.innerHTML = losses;
-        }
+function lose() {
+  if (state === "1-1") {
+    state = "Breakout";
+  } else if (state === "Comeback") {
+    state = "Breakout";
+  } else if (state === "Breakout") {
+    state = "2-2";
+  }
+  displayResults();
+}
 
-        function updateScoreTable() {
-            document.getElementById('wins1').innerText = wins1;
-            document.getElementById('losses1').innerText = losses1;
-            document.getElementById('wins2').innerText = wins2;
-            document.getElementById('losses2').innerText = losses2;
-            document.getElementById('winsBreakout').innerText = winsBreakout;
-            document.getElementById('lossesBreakout').innerText = lossesBreakout;
-            document.getElementById('winsComeBack').innerText = winsComeBack;
-            document.getElementById('lossesComeBack').innerText = lossesComeBack;
-        }
+function threeAcross() {
+  if (state === "2-2") {
+    state = "1-1";
+  }
+  displayResults();
+}
 
-        function resetGame() {
-            rounds = 0;
-            document.getElementById('roundsTable').innerHTML = "<tr><th>Round</th><th>State</th><th>Wins</th><th>Losses</th></tr>";
-            document.getElementById('startOver').style.display = "none";
-        }
-    </script>
+function fourDown() {
+  if (state === "2-2") {
+    state = "Breakout";
+  }
+  displayResults();
+}
+
+function displayResults() {
+  let table = document.getElementById("gameTable");
+  let row = table.insertRow(-1);
+  let roundCell = row.insertCell(0);
+  let stateCell = row.insertCell(1);
+  roundCell.innerHTML = round++;
+  stateCell.innerHTML = state;
+}
+</script>
+
 </body>
 </html>
