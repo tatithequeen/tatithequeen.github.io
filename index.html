@@ -25,6 +25,7 @@
         let rounds = 0;
         let state = "1-1";
         let consecutiveLosses = 0;
+        let previousState = "";
         let wins1 = 0, losses1 = 0, wins2 = 0, losses2 = 0, winsBreakout = 0, lossesBreakout = 0, winsComeBack = 0, lossesComeBack = 0;
 
         function playRound(outcome) {
@@ -35,11 +36,12 @@
                         losses1++;
                         consecutiveLosses++;
                         if (consecutiveLosses === 2) {
-                            state = "2-2";
+                            if (previousState === "Breakout") {
+                                state = "2-2";
+                            } else {
+                                state = "Breakout";
+                            }
                             consecutiveLosses = 0;
-                        }
-                        if (consecutiveLosses === 1 && state === "1-1") {
-                            state = "Breakout";
                         }
                     } else if (outcome === "win") {
                         wins1++;
@@ -50,9 +52,9 @@
                 case "Breakout":
                     if (outcome === "lose") {
                         lossesBreakout++;
-                        state = (consecutiveLosses < 2) ? "ComeBack" : "2-2";
-                        consecutiveLosses = 0;
+                        state = "ComeBack";
                     }
+                    previousState = "Breakout";
                     break;
                 case "2-2":
                     document.getElementById('3Down').style.display = "inline";
