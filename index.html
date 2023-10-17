@@ -7,39 +7,99 @@
     <h2>Current State: <span id="currentState">1-1</span></h2>
     <button onclick="playRound('lose')">Lose</button>
     <button onclick="playRound('win')">Win</button>
+    <button id="3Down" style="display:none" onclick="playRound('3 Down')">3 Down</button>
+    <button id="4Across" style="display:none" onclick="playRound('4 Across')">4 Across</button>
+
+    <h2>Wins and Losses</h2>
+    <table id="scoreTable" border="1">
+        <tr>
+            <th>State</th>
+            <th>Wins</th>
+            <th>Losses</th>
+        </tr>
+        <tr>
+            <td>1-1</td>
+            <td id="wins1">0</td>
+            <td id="losses1">0</td>
+        </tr>
+        <tr>
+            <td>2-2</td>
+            <td id="wins2">0</td>
+            <td id="losses2">0</td>
+        </tr>
+        <tr>
+            <td>Breakout</td>
+            <td id="winsBreakout">0</td>
+            <td id="lossesBreakout">0</td>
+        </tr>
+        <tr>
+            <td>ComeBack</td>
+            <td id="winsComeBack">0</td>
+            <td id="lossesComeBack">0</td>
+        </tr>
+    </table>
 
     <script>
         let state = "1-1";
         let consecutiveLosses = 0;
+        let wins1 = 0, losses1 = 0, wins2 = 0, losses2 = 0, winsBreakout = 0, lossesBreakout = 0, winsComeBack = 0, lossesComeBack = 0;
 
         function playRound(outcome) {
             switch (state) {
                 case "1-1":
                     if (outcome === "lose") {
+                        losses1++;
                         consecutiveLosses++;
                         if (consecutiveLosses === 2) {
                             state = "2-2";
                             consecutiveLosses = 0;
                         }
                     } else if (outcome === "win") {
+                        wins1++;
                         state = "1-1";
                         consecutiveLosses = 0;
                     }
                     break;
                 case "Breakout":
                     if (outcome === "lose") {
-                        state = "2-2";
+                        lossesBreakout++;
+                        state = (consecutiveLosses < 2) ? "ComeBack" : "2-2";
                     }
                     break;
                 case "2-2":
+                    document.getElementById('3Down').style.display = "inline";
+                    document.getElementById('4Across').style.display = "inline";
                     if (outcome === "4 Down") {
+                        losses2++;
                         state = "Breakout";
                     } else if (outcome === "3 Across") {
+                        wins2++;
+                        state = "1-1";
+                    }
+                    break;
+                case "ComeBack":
+                    if (outcome === "lose") {
+                        lossesComeBack++;
+                        state = "Breakout";
+                    } else if (outcome === "win") {
+                        winsComeBack++;
                         state = "1-1";
                     }
                     break;
             }
             document.getElementById('currentState').innerText = state;
+            updateScoreTable();
+        }
+
+        function updateScoreTable() {
+            document.getElementById('wins1').innerText = wins1;
+            document.getElementById('losses1').innerText = losses1;
+            document.getElementById('wins2').innerText = wins2;
+            document.getElementById('losses2').innerText = losses2;
+            document.getElementById('winsBreakout').innerText = winsBreakout;
+            document.getElementById('lossesBreakout').innerText = lossesBreakout;
+            document.getElementById('winsComeBack').innerText = winsComeBack;
+            document.getElementById('lossesComeBack').innerText = lossesComeBack;
         }
     </script>
 </body>
