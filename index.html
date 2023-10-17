@@ -1,96 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-  table {
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  table, th, td {
-    border: 1px solid black;
-  }
-</style>
+    <title>Labouchere System</title>
 </head>
 <body>
+    <h2>Labouchere System</h2>
+    <p>Initial sequence: [1, 2, 3, 4]</p>
+    <p>Current sequence: <span id="sequence">1, 2, 3, 4</span></p>
+    <p>Last Bet Amount: <span id="lastBet">1</span></p>
+    <button onclick="onWin()">Win</button>
+    <button onclick="onLose()">Lose</button>
+    <br>
+    <br>
+    <table border="1">
+        <tr>
+            <th>Bet Amount</th>
+            <th>Result</th>
+            <th>Current Sequence</th>
+        </tr>
+    </table>
 
-<h2>Game Flow</h2>
+    <script>
+        let sequence = [1, 2, 3, 4];
+        let lastBetAmount = 1;
+        let table = document.querySelector('table');
 
-<div id="buttons">
-  <button id="winButton" onclick="win()">Win</button>
-  <button id="loseButton" onclick="lose()">Lose</button>
-  <button id="threeAcrossButton" style="display: none;" onclick="threeAcross()">3 Across</button>
-  <button id="fourDownButton" style="display: none;" onclick="fourDown()">4 Down</button>
-  <button onclick="startOver()">Start Over</button>
-</div>
+        function updateTable(bet, result) {
+            let newRow = table.insertRow(-1);
+            let betCell = newRow.insertCell(0);
+            let resultCell = newRow.insertCell(1);
+            let sequenceCell = newRow.insertCell(2);
 
-<table id="gameTable">
-  <tr>
-    <th>Round</th>
-    <th>State</th>
-  </tr>
-</table>
+            betCell.innerHTML = bet;
+            resultCell.innerHTML = result;
+            sequenceCell.innerHTML = sequence.join(', ');
+        }
 
-<script>
-let round = 1;
-let state = "1-1";
+        function calculateNextBet() {
+            if (sequence.length === 0) {
+                sequence = [1, 2, 3, 4];
+            }
+            return sequence[0] + sequence[sequence.length - 1];
+        }
 
-function win() {
-  if (state === "Comeback") {
-    state = "1-1";
-  }
-  displayResults();
-  checkState();
-}
+        function onWin() {
+            let betAmount = lastBetAmount;
+            sequence.shift();
+            sequence.pop();
+            updateTable(betAmount, 'Win');
+            document.getElementById('sequence').textContent = sequence.join(', ');
+            lastBetAmount = calculateNextBet();
+            document.getElementById('lastBet').textContent = lastBetAmount;
+        }
 
-function lose() {
-  if (state === "1-1") {
-    state = "Breakout";
-  } else if (state === "Comeback") {
-    state = "Breakout";
-  } else if (state === "Breakout") {
-    state = "2-2";
-  }
-  displayResults();
-  checkState();
-}
-
-function threeAcross() {
-  if (state === "2-2") {
-    state = "1-1";
-  }
-  displayResults();
-  checkState();
-}
-
-function fourDown() {
-  if (state === "2-2") {
-    state = "Breakout";
-  }
-  displayResults();
-  checkState();
-}
-
-function startOver() {
-  round = 1;
-  state = "1-1";
-  displayResults();
-  checkState();
-}
-
-function checkState() {
-  document.getElementById("threeAcrossButton").style.display = state === "2-2" ? "inline" : "none";
-  document.getElementById("fourDownButton").style.display = state === "2-2" ? "inline" : "none";
-}
-
-function displayResults() {
-  let table = document.getElementById("gameTable");
-  let row = table.insertRow(-1);
-  let roundCell = row.insertCell(0);
-  let stateCell = row.insertCell(1);
-  roundCell.innerHTML = round++;
-  stateCell.innerHTML = state;
-}
-</script>
-
+        function onLose() {
+            let betAmount = lastBetAmount;
+            let lostAmount = calculateNextBet();
+            sequence.push(lostAmount);
+            updateTable(betAmount, 'Loss');
+            document.getElementById('sequence').textContent = sequence.join(', ');
+            lastBetAmount = calculateNextBet();
+            document.getElementById('lastBet').textContent = lastBetAmount;
+        }
+    </script>
 </body>
 </html>
