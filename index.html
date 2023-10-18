@@ -4,19 +4,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Labouchere System</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
-    
 </head>
 <body>
-
     <h2>Labouchere System</h2>
-    <p>Initial sequence: [1, 2, 3, 4]</p>
     <p>
         Enter your sequence:
         <input type="text" id="userSequence" placeholder="Enter numbers separated by commas">
         <button onclick="updateSequence()">Update</button>
+        <button onclick="resetSequence()">Reset</button>
     </p>
-    <p>Current sequence: <span id="sequence">1, 2, 3, 4</span></p>
-    <p>Your Bet: <span id="lastBet">5</span></p>
+    <p>Your Bet: <span id="lastBet">0</span></p>
     <button class="button1" onclick="onWin()">Win</button>
     <button class="button2" onclick="onLose()">Lose</button>
     <br><br>
@@ -29,8 +26,8 @@
     </table>
 
     <script>
-        let sequence = [1, 2, 3, 4];
-        let lastBetAmount = 5;
+        let sequence = [];
+        let lastBetAmount = 0;
         let table = document.querySelector('table');
 
         function updateTable(bet, result) {
@@ -46,7 +43,8 @@
 
         function calculateNextBet() {
             if (sequence.length < 2) {
-                sequence = [1, 2, 3, 4];
+                alert('Sequence should have at least 2 numbers.');
+                return 0;
             } else {
                 let first = sequence.shift();
                 let last = sequence.pop();
@@ -60,7 +58,6 @@
             let betAmount = lastBetAmount;
             lastBetAmount = calculateNextBet();
             updateTable(betAmount, 'Win');
-            document.getElementById('sequence').textContent = sequence.join(', ');
             document.getElementById('lastBet').textContent = lastBetAmount;
         }
 
@@ -70,16 +67,28 @@
             sequence.push(lostAmount);
             lastBetAmount = calculateNextBet();
             updateTable(betAmount, 'Loss');
-            document.getElementById('sequence').textContent = sequence.join(', ');
             document.getElementById('lastBet').textContent = lastBetAmount;
         }
 
         function updateSequence() {
             let userInput = document.getElementById('userSequence').value;
             sequence = userInput.split(',').map(item => parseInt(item.trim()));
-            document.getElementById('sequence').textContent = sequence.join(', ');
             lastBetAmount = calculateNextBet();
             document.getElementById('lastBet').textContent = lastBetAmount;
+        }
+
+        function resetSequence() {
+            sequence = [];
+            lastBetAmount = 0;
+            clearTable();
+            document.getElementById('lastBet').textContent = lastBetAmount;
+        }
+
+        function clearTable() {
+            let rowCount = table.rows.length;
+            for (let i = rowCount - 1; i > 0; i--) {
+                table.deleteRow(i);
+            }
         }
     </script>
 </body>
