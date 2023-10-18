@@ -69,7 +69,7 @@ function onWin() {
             let betAmount = currentBetAmount;
             if (sequence.length > 2) {
                 sequence = sequence.slice(1, -1);
-            } else {
+            } else if (sequence.length === 2) {
                 sequence = [...originalSequence];
             }
             updateBet();
