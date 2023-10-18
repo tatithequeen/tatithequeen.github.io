@@ -66,16 +66,16 @@
         }
 
              function onWin() {
-            let betAmount = currentBetAmount;
-            if (sequence.length <= 1) {
-                sequence = [...originalSequence];
-            } else {
-                sequence.pop();
-                sequence.shift();
-            }
-            updateBet();
-            updateTable(betAmount, 'Win', sequence.join(', '));
-        }
+    let betAmount = currentBetAmount;
+    if (sequence.length > 2) {
+        sequence.pop();
+        sequence.shift();
+    } else if (sequence.length === 1) {
+        sequence = [...originalSequence];
+    }
+    updateBet();
+    updateTable(betAmount, 'Win', sequence.join(', '));
+}
         
         function onLose() {
             let lostAmount = currentBetAmount;
