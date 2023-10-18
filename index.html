@@ -68,8 +68,7 @@
 function onWin() {
             let betAmount = currentBetAmount;
             if (sequence.length > 2) {
-                sequence.shift();
-                sequence.pop();
+                sequence = sequence.slice(1, -1);
             } else {
                 sequence = [...originalSequence];
             }
