@@ -32,13 +32,22 @@
 
         function useSequenceOne() {
             sequence = [1, 1, 1, 1];
-            currentBetAmount = 2;
-            currentBetElement.textContent = currentBetAmount;
+            updateBet();
         }
 
         function useSequenceTwo() {
             sequence = [1, 2, 3, 4];
-            currentBetAmount = 5;
+            updateBet();
+        }
+
+        function updateBet() {
+            if (sequence.length >= 2) {
+                currentBetAmount = sequence[0] + sequence[sequence.length - 1];
+            } else if (sequence.length === 1) {
+                currentBetAmount = sequence[0];
+            } else {
+                currentBetAmount = 0;
+            }
             currentBetElement.textContent = currentBetAmount;
         }
 
@@ -53,30 +62,21 @@
             sequenceCell.textContent = currentSequence;
         }
 
-        function calculateNextBet() {
-            if (sequence.length === 0) {
-                return 0;
-            } else if (sequence.length === 1) {
-                return sequence[0];
-            } else {
-                return sequence[0] + sequence[sequence.length - 1];
-            }
-        }
-
         function onWin() {
             let betAmount = currentBetAmount;
-            currentBetAmount = calculateNextBet();
-            sequence.pop();
-            sequence.shift();
+            if (sequence.length >= 2) {
+                sequence.pop();
+                sequence.shift();
+            }
+            updateBet();
             updateTable(betAmount, 'Win', sequence.join(', '));
-            currentBetElement.textContent = currentBetAmount;
         }
 
         function onLose() {
-            let lostAmount = calculateNextBet();
+            let lostAmount = currentBetAmount;
             sequence.push(lostAmount);
+            updateBet();
             updateTable(lostAmount, 'Loss', sequence.join(', '));
-            currentBetElement.textContent = lostAmount;
         }
     </script>
 </body>
