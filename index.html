@@ -49,16 +49,18 @@
         }
 
         function calculateNextBet() {
-            if (sequence.length < 2) {
-                return 0;
-            } else {
-                return sequence[0] + sequence[sequence.length - 1];
+            if (sequence.length === 0) {
+                updateSequence();
             }
+            return sequence[0] + sequence[sequence.length - 1];
         }
 
         function onWin() {
             let betAmount = lastBetAmount;
             lastBetAmount = calculateNextBet();
+            if (sequence.length === 0) {
+                updateSequence();
+            }
             sequence.shift();
             sequence.pop();
             updateTable(betAmount, 'Win');
@@ -69,8 +71,9 @@
             let betAmount = lastBetAmount;
             let lostAmount = sequence[0] + sequence[sequence.length - 1];
             sequence.push(lostAmount);
+            lastBetAmount = calculateNextBet();
             updateTable(betAmount, 'Loss');
-            document.getElementById('lastBet').textContent = lostAmount;
+            document.getElementById('lastBet').textContent = lastBetAmount;
         }
 
         function updateSequence() {
