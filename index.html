@@ -61,7 +61,12 @@
         function onWin() {
             let betAmount = lastBetAmount;
             lastBetAmount = calculateNextBet();
-            sequence = sequence.slice(1, -1);
+            if (sequence.length <= 2) {
+                updateSequence();
+            } else {
+                sequence.shift();
+                sequence.pop();
+            }
             updateTable(betAmount, 'Win');
             document.getElementById('lastBet').textContent = lastBetAmount;
         }
@@ -70,7 +75,7 @@
             let betAmount = lastBetAmount;
             let lostAmount = calculateNextBet();
             sequence.push(lostAmount);
-            lastBetAmount = lostAmount;
+            lastBetAmount = calculateNextBet();
             updateTable(betAmount, 'Loss');
             document.getElementById('lastBet').textContent = lastBetAmount;
         }
