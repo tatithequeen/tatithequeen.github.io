@@ -4,6 +4,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Labouchere System</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+    table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid #ddd;
+            margin-top: 20px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        @media screen and (max-width: 600px) {
+            table {
+                border: 0;
+            }
+            table, th, td, tr {
+                display: block;
+            }
+            th, td {
+                border: none;
+            }
+            th {
+                padding: 10px 0;
+            }
+            td {
+                padding: 10px 0;
+            }
+            tr {
+                border: 1px solid #ddd;
+                margin-bottom: 10px;
+            }
+        } </style>
 </head>
 <body>
     <h2>Labouchere System</h2>
