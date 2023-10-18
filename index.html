@@ -53,15 +53,15 @@
 
         function onWin() {
             let betAmount = currentBetAmount;
-            currentBetAmount = calculateNextBet();
             if (sequence.length <= 2) {
+                currentBetAmount = sequence[0];
                 updateSequence();
             } else {
-                sequence.shift();
-                sequence.pop();
+                currentBetAmount = sequence[0] + sequence[sequence.length - 1];
+                sequence = sequence.slice(1, sequence.length - 1);
             }
             updateTable(betAmount, 'Win', sequence.join(', '));
-            currentBetElement.textContent = currentBetAmount; // Updated to display currentBetAmount
+            currentBetElement.textContent = currentBetAmount;
         }
 
         function onLose() {
@@ -70,14 +70,14 @@
             sequence.push(lostAmount);
             currentBetAmount = lostAmount;
             updateTable(betAmount, 'Loss', sequence.join(', '));
-            currentBetElement.textContent = currentBetAmount; // Updated to display currentBetAmount
+            currentBetElement.textContent = currentBetAmount;
         }
 
         function updateSequence() {
             let userInput = document.getElementById('userSequence').value;
             sequence = userInput.split(',').map(item => parseInt(item.trim()));
             currentBetAmount = sequence[0] + sequence[sequence.length - 1];
-            currentBetElement.textContent = currentBetAmount; // Updated to display currentBetAmount
+            currentBetElement.textContent = currentBetAmount;
         }
 
         function clearTable() {
