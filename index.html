@@ -27,9 +27,9 @@
 
     <script>
         let sequence = [];
-        let currentBet = 0;
+        let currentBetAmount = 0;
         let table = document.getElementById('resultTable');
-        let currentBetElement = document.getElementById('currentBet');
+        let currentBet = document.getElementById('currentBet');
 
         function updateTable(bet, result, currentSequence) {
             let newRow = table.insertRow(-1);
@@ -53,8 +53,8 @@
         }
 
         function onWin() {
-            let betAmount = currentBet;
-            currentBet = calculateNextBet();
+            let betAmount = currentBetAmount;
+            currentBetAmount = calculateNextBet();
             if (sequence.length <= 2) {
                 updateSequence();
             } else {
@@ -62,23 +62,23 @@
                 sequence.pop();
             }
             updateTable(betAmount, 'Win', sequence.join(', '));
-            currentBetElement.textContent = currentBet;
+            currentBet.textContent = currentBetAmount;
         }
 
         function onLose() {
-            let betAmount = currentBet;
+            let betAmount = currentBetAmount;
             let lostAmount = calculateNextBet();
             sequence.push(lostAmount);
-            currentBet = lostAmount;
+            currentBetAmount = lostAmount;
             updateTable(betAmount, 'Loss', sequence.join(', '));
-            currentBetElement.textContent = currentBet;
+            currentBet.textContent = currentBetAmount;
         }
 
         function updateSequence() {
             let userInput = document.getElementById('userSequence').value;
             sequence = userInput.split(',').map(item => parseInt(item.trim()));
-            currentBet = sequence[0] + sequence[sequence.length - 1];
-            currentBetElement.textContent = currentBet;
+            currentBetAmount = sequence[0] + sequence[sequence.length - 1];
+            currentBet.textContent = currentBetAmount;
         }
 
         function clearTable() {
