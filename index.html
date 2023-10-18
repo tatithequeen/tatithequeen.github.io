@@ -4,72 +4,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Labouchere System</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-
-        th, td {
-            border: 1px solid black;
-            padding: 10px;
-            text-align: center;
-        }
-    </style>
+    
 </head>
 <body>
 
-<h2>Baccarat Scoreboard</h2>
-    <button onclick="updateScore('Player')">Player Win</button>
-    <button onclick="updateScore('Banker')">Banker Win</button>
-    <br><br>
-    <table>
-        <tr>
-            <th>Round</th>
-            <th>Result 1</th>
-            <th>Result 2</th>
-            <th>Result 3</th>
-            <th>Result 4</th>
-            <th>Result 5</th>
-            <th>Result 6</th>
-            <th>Result 7</th>
-            <th>Result 8</th>
-            <th>Result 9</th>
-            <th>Result 10</th>
-            <th>Result 11</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td id="result1"></td>
-            <td id="result2"></td>
-            <td id="result3"></td>
-            <td id="result4"></td>
-            <td id="result5"></td>
-            <td id="result6"></td>
-            <td id="result7"></td>
-            <td id="result8"></td>
-            <td id="result9"></td>
-            <td id="result10"></td>
-            <td id="result11"></td>
-        </tr>
-        <!-- Additional rows -->
-    </table>
-
-    <script>
-        let round = 1;
-        let table = document.querySelector('table');
-
-        function updateScore(winner) {
-            if (round > 6) {
-                alert('Maximum rounds reached.');
-                return;
-            }
-            let currentRow = table.rows[round];
-            let resultCell = currentRow.cells[round];
-            resultCell.textContent = winner;
-            round++;
-        }
-    </script>
-    
     <h2>Labouchere System</h2>
     <p>Initial sequence: [1, 2, 3, 4]</p>
     <p>
