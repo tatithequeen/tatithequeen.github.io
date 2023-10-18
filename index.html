@@ -6,7 +6,6 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <body>
     <h2>Labouchere System</h2>
     <p>
         Enter your sequence:
@@ -29,7 +28,7 @@
         let sequence = [];
         let currentBetAmount = 0;
         let table = document.getElementById('resultTable');
-        let currentBet = document.getElementById('currentBet');
+        let currentBetElement = document.getElementById('currentBet');
 
         function updateTable(bet, result, currentSequence) {
             let newRow = table.insertRow(-1);
@@ -62,7 +61,7 @@
                 sequence.pop();
             }
             updateTable(betAmount, 'Win', sequence.join(', '));
-            currentBet.textContent = currentBetAmount;
+            currentBetElement.textContent = currentBetAmount; // Updated to display currentBetAmount
         }
 
         function onLose() {
@@ -71,14 +70,14 @@
             sequence.push(lostAmount);
             currentBetAmount = lostAmount;
             updateTable(betAmount, 'Loss', sequence.join(', '));
-            currentBet.textContent = currentBetAmount;
+            currentBetElement.textContent = currentBetAmount; // Updated to display currentBetAmount
         }
 
         function updateSequence() {
             let userInput = document.getElementById('userSequence').value;
             sequence = userInput.split(',').map(item => parseInt(item.trim()));
             currentBetAmount = sequence[0] + sequence[sequence.length - 1];
-            currentBet.textContent = currentBetAmount;
+            currentBetElement.textContent = currentBetAmount; // Updated to display currentBetAmount
         }
 
         function clearTable() {
