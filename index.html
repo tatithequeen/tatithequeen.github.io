@@ -1,22 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport"
-content="width=device-width, initial scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Labouchere System</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
+
+<h2>Baccarat Scoreboard</h2>
+    <button onclick="updateScore('Player')">Player Win</button>
+    <button onclick="updateScore('Banker')">Banker Win</button>
+    <br><br>
+    <table>
+        <tr>
+            <th>Round</th>
+            <th>Result 1</th>
+            <th>Result 2</th>
+            <th>Result 3</th>
+            <th>Result 4</th>
+            <th>Result 5</th>
+            <th>Result 6</th>
+            <th>Result 7</th>
+            <th>Result 8</th>
+            <th>Result 9</th>
+            <th>Result 10</th>
+            <th>Result 11</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td id="result1"></td>
+            <td id="result2"></td>
+            <td id="result3"></td>
+            <td id="result4"></td>
+            <td id="result5"></td>
+            <td id="result6"></td>
+            <td id="result7"></td>
+            <td id="result8"></td>
+            <td id="result9"></td>
+            <td id="result10"></td>
+            <td id="result11"></td>
+        </tr>
+        <!-- Additional rows -->
+    </table>
+
+    <script>
+        let round = 1;
+        let table = document.querySelector('table');
+
+        function updateScore(winner) {
+            if (round > 6) {
+                alert('Maximum rounds reached.');
+                return;
+            }
+            let currentRow = table.rows[round];
+            let resultCell = currentRow.cells[round];
+            resultCell.textContent = winner;
+            round++;
+        }
+    </script>
+    
     <h2>Labouchere System</h2>
     <p>Initial sequence: [1, 2, 3, 4]</p>
+    <p>
+        Enter your sequence:
+        <input type="text" id="userSequence" placeholder="Enter numbers separated by commas">
+        <button onclick="updateSequence()">Update</button>
+    </p>
     <p>Current sequence: <span id="sequence">1, 2, 3, 4</span></p>
-    <p>Last Bet Amount: <span id="lastBet">0</span></p>
-    <button class="button1"
-    onclick="onWin()">Win</button>
-    <button class="button2"
-    onclick="onLose()">Lose</button>
-    <br>
-    <br>
+    <p>Your Bet: <span id="lastBet">5</span></p>
+    <button class="button1" onclick="onWin()">Win</button>
+    <button class="button2" onclick="onLose()">Lose</button>
+    <br><br>
     <table border="1">
         <tr>
             <th>Bet Amount</th>
@@ -36,25 +101,28 @@ content="width=device-width, initial scale=1.0">
             let resultCell = newRow.insertCell(1);
             let sequenceCell = newRow.insertCell(2);
 
-            betCell.innerHTML = bet;
-            resultCell.innerHTML = result;
-            sequenceCell.innerHTML = sequence.join(', ');
+            betCell.textContent = bet;
+            resultCell.textContent = result;
+            sequenceCell.textContent = sequence.join(', ');
         }
 
         function calculateNextBet() {
-            if (sequence.length === 0) {
+            if (sequence.length < 2) {
                 sequence = [1, 2, 3, 4];
+            } else {
+                let first = sequence.shift();
+                let last = sequence.pop();
+                sequence = sequence.slice(1, -1);
+                sequence.push(first + last);
             }
             return sequence[0] + sequence[sequence.length - 1];
         }
 
         function onWin() {
             let betAmount = lastBetAmount;
-            sequence.shift();
-            sequence.pop();
+            lastBetAmount = calculateNextBet();
             updateTable(betAmount, 'Win');
             document.getElementById('sequence').textContent = sequence.join(', ');
-            lastBetAmount = calculateNextBet();
             document.getElementById('lastBet').textContent = lastBetAmount;
         }
 
@@ -62,7 +130,15 @@ content="width=device-width, initial scale=1.0">
             let betAmount = lastBetAmount;
             let lostAmount = calculateNextBet();
             sequence.push(lostAmount);
+            lastBetAmount = calculateNextBet();
             updateTable(betAmount, 'Loss');
+            document.getElementById('sequence').textContent = sequence.join(', ');
+            document.getElementById('lastBet').textContent = lastBetAmount;
+        }
+
+        function updateSequence() {
+            let userInput = document.getElementById('userSequence').value;
+            sequence = userInput.split(',').map(item => parseInt(item.trim()));
             document.getElementById('sequence').textContent = sequence.join(', ');
             lastBetAmount = calculateNextBet();
             document.getElementById('lastBet').textContent = lastBetAmount;
@@ -70,3 +146,4 @@ content="width=device-width, initial scale=1.0">
     </script>
 </body>
 </html>
+
