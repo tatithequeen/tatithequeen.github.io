@@ -24,6 +24,19 @@
     cursor: pointer;
     margin: 5px;
 }
+.button3 {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #000000;
+    color: white;
+    text-align: center;
+    font-size: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
 
 .button-container {
 	display: flex;
