@@ -9,7 +9,7 @@
     <h2>Labouchere System</h2>
     <p>
         Enter your sequence:
-        <input type="text" id="userSequence" placeholder="Enter #s separated by commas">
+        <input type="text" id="userSequence" placeholder="Enter numbers separated by commas">
         <button onclick="updateSequence()">Update</button>
     </p>
     <p>Your Bet: <span id="lastBet">0</span></p>
@@ -67,10 +67,10 @@
 
         function onLose() {
             let betAmount = lastBetAmount;
-            let lostAmount = calculateNextBet();
+            let lostAmount = sequence[0] + sequence[sequence.length - 1];
             sequence.push(lostAmount);
             updateTable(betAmount, 'Loss');
-            document.getElementById('lastBet').textContent = lastBetAmount;
+            document.getElementById('lastBet').textContent = lostAmount;
         }
 
         function updateSequence() {
