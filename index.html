@@ -40,14 +40,6 @@
             sequenceCell.textContent = sequence.join(', ');
         }
 
-        function calculateInitialBet() {
-            if (sequence.length < 2) {
-                return 0;
-            } else {
-                return sequence[0] + sequence[sequence.length - 1];
-            }
-        }
-
         function calculateNextBet() {
             if (sequence.length === 0) {
                 return 0;
@@ -83,7 +75,7 @@
         function updateSequence() {
             let userInput = document.getElementById('userSequence').value;
             sequence = userInput.split(',').map(item => parseInt(item.trim()));
-            lastBetAmount = calculateInitialBet();
+            lastBetAmount = sequence[0] + sequence[sequence.length - 1];
             document.getElementById('lastBet').textContent = lastBetAmount;
         }
 
