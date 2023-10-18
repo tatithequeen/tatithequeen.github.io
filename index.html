@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-     <h2>Labouchere System</h2>
+    <h2>Labouchere System</h2>
     <p>
         Choose a sequence:
         <button onclick="useSequenceOne()">1,1,1,1</button>
@@ -25,18 +25,21 @@
     </table>
 
     <script>
+        let originalSequence = [];
         let sequence = [];
         let currentBetAmount = 0;
         let table = document.getElementById('resultTable');
         let currentBetElement = document.getElementById('currentBet');
 
         function useSequenceOne() {
-            sequence = [1, 1, 1, 1];
+            originalSequence = [1, 1, 1, 1];
+            sequence = [...originalSequence];
             updateBet();
         }
 
         function useSequenceTwo() {
-            sequence = [1, 2, 3, 4];
+            originalSequence = [1, 2, 3, 4];
+            sequence = [...originalSequence];
             updateBet();
         }
 
@@ -67,6 +70,9 @@
             if (sequence.length >= 2) {
                 sequence.pop();
                 sequence.shift();
+            }
+            if (sequence.length === 0) {
+                sequence = [...originalSequence];
             }
             updateBet();
             updateTable(betAmount, 'Win', sequence.join(', '));
