@@ -75,7 +75,7 @@
             let betAmount = lastBetAmount;
             let lostAmount = calculateNextBet();
             sequence.push(lostAmount);
-            lastBetAmount = calculateNextBet();
+            lastBetAmount = lostAmount;
             updateTable(betAmount, 'Loss');
             document.getElementById('lastBet').textContent = lastBetAmount;
         }
