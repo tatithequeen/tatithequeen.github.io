@@ -65,17 +65,17 @@
             sequenceCell.textContent = currentSequence;
         }
 
-             function onWin() {
-    let betAmount = currentBetAmount;
-    if (sequence.length > 2) {
-        sequence.pop();
-        sequence.shift();
-    } else if (sequence.length === 2) {
-        sequence = [...originalSequence];
-    }
-    updateBet();
-    updateTable(betAmount, 'Win', sequence.join(', '));
-}
+function onWin() {
+            let betAmount = currentBetAmount;
+            if (sequence.length > 2) {
+                sequence.shift();
+                sequence.pop();
+            } else {
+                sequence = [...originalSequence];
+            }
+            updateBet();
+            updateTable(betAmount, 'Win', sequence.join(', '));
+        }
         
         function onLose() {
             let lostAmount = currentBetAmount;
