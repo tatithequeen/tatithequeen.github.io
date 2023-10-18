@@ -9,7 +9,7 @@
     <h2>Labouchere System</h2>
     <p>
         Enter your sequence:
-        <input type="text" id="userSequence" placeholder="Enter numbers separated by commas">
+        <input type="text" id="userSequence" placeholder="Enter #s separated by commas">
         <button onclick="updateSequence()">Update</button>
     </p>
     <p>Your Bet: <span id="lastBet">0</span></p>
@@ -40,6 +40,14 @@
             sequenceCell.textContent = sequence.join(', ');
         }
 
+        function calculateInitialBet() {
+            if (sequence.length < 2) {
+                return 0;
+            } else {
+                return sequence[0] + sequence[sequence.length - 1];
+            }
+        }
+
         function calculateNextBet() {
             if (sequence.length < 2) {
                 return 0;
@@ -51,6 +59,8 @@
         function onWin() {
             let betAmount = lastBetAmount;
             lastBetAmount = calculateNextBet();
+            sequence.shift();
+            sequence.pop();
             updateTable(betAmount, 'Win');
             document.getElementById('lastBet').textContent = lastBetAmount;
         }
@@ -59,7 +69,6 @@
             let betAmount = lastBetAmount;
             let lostAmount = calculateNextBet();
             sequence.push(lostAmount);
-            lastBetAmount = calculateNextBet();
             updateTable(betAmount, 'Loss');
             document.getElementById('lastBet').textContent = lastBetAmount;
         }
@@ -67,7 +76,7 @@
         function updateSequence() {
             let userInput = document.getElementById('userSequence').value;
             sequence = userInput.split(',').map(item => parseInt(item.trim()));
-            lastBetAmount = calculateNextBet();
+            lastBetAmount = calculateInitialBet();
             document.getElementById('lastBet').textContent = lastBetAmount;
         }
 
@@ -80,4 +89,3 @@
     </script>
 </body>
 </html>
-
