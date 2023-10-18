@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
+    <body>
     <h2>Labouchere System</h2>
     <p>
         Enter your sequence:
@@ -26,9 +27,9 @@
 
     <script>
         let sequence = [];
-        let currentBetAmount = 0;
+        let currentBet = 0;
         let table = document.getElementById('resultTable');
-        let currentBet = document.getElementById('currentBet');
+        let currentBetElement = document.getElementById('currentBet');
 
         function updateTable(bet, result, currentSequence) {
             let newRow = table.insertRow(-1);
@@ -52,8 +53,8 @@
         }
 
         function onWin() {
-            let betAmount = currentBetAmount;
-            currentBetAmount = calculateNextBet();
+            let betAmount = currentBet;
+            currentBet = calculateNextBet();
             if (sequence.length <= 2) {
                 updateSequence();
             } else {
@@ -61,23 +62,23 @@
                 sequence.pop();
             }
             updateTable(betAmount, 'Win', sequence.join(', '));
-            currentBet.textContent = currentBetAmount;
+            currentBetElement.textContent = currentBet;
         }
 
         function onLose() {
-            let betAmount = currentBetAmount;
+            let betAmount = currentBet;
             let lostAmount = calculateNextBet();
             sequence.push(lostAmount);
-            currentBetAmount = lostAmount;
+            currentBet = lostAmount;
             updateTable(betAmount, 'Loss', sequence.join(', '));
-            currentBet.textContent = currentBetAmount;
+            currentBetElement.textContent = currentBet;
         }
 
         function updateSequence() {
             let userInput = document.getElementById('userSequence').value;
             sequence = userInput.split(',').map(item => parseInt(item.trim()));
-            currentBetAmount = sequence[0] + sequence[sequence.length - 1];
-            currentBet.textContent = currentBetAmount;
+            currentBet = sequence[0] + sequence[sequence.length - 1];
+            currentBetElement.textContent = currentBet;
         }
 
         function clearTable() {
