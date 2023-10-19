@@ -17,7 +17,7 @@
     text-align: center; /* Aligns content to the center within table cells */
   }
 
-  .button {
+    .button {
     display: inline-block;
     padding: 10px 20px;
     background-color: #4CAF50;
@@ -32,7 +32,7 @@
     border-radius: 12px;
   }
   
-    .buttonplayer {
+  .buttonplayer {
     display: inline-block;
     padding: 10px 20px;
     background-color: blue;
@@ -47,7 +47,7 @@
     border-radius: 12px;
   }
   
-      .buttonbanker {
+  .buttonbanker {
     display: inline-block;
     padding: 10px 20px;
     background-color: red;
@@ -66,30 +66,30 @@
     background-color: #3e8e41;
   }
 
-.circle {
+  .circle {
     height: 20px;
     width: 20px;
     border-radius: 50%;
     display: inline-block;
     margin: 5px;
     border: 2px solid;
-}
+  }
 
-.blue {
+  .blue {
     border-color: blue;
-}
+  }
 
-.red {
+  .red {
     border-color: red;
-}
+  }
 
-.blueBackground {
+  .blueBackground {
     background-color: blue;
-}
+  }
 
-.redBackground {
+  .redBackground {
     background-color: red;
-}
+  }
 
 </style>
 </head>
@@ -252,18 +252,19 @@ function handleWinButtonClick() {
 
 function handlePlayerButtonClick() {
     if (selectedOption === 'win') {
-        const circle = createCircle('blue', 'filled');
+        const circle = createCircle('blue', 'filled', 'bluebackground');
         displayAsRow('row2', circle);
         selectedOption = null; // Reset the win button
         document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
-    } else {
-        if (lastClicked === 'player') {
+   } else {
+        if (playerClicks > 0) {
             displayAsColumn('row2', createCircle('blue', 'empty'));
         } else {
             displayAsRow('row1', createCircle('blue', 'empty'));
         }
     }
-    lastClicked = 'player';
+    playerClicks++;
+    bankerClicks = 0;
 }
 
 function handleBankerButtonClick() {
@@ -272,14 +273,15 @@ function handleBankerButtonClick() {
         displayAsRow('row1', circle);
         selectedOption = null; // Reset the win button
         document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
-    } else {
-        if (lastClicked === 'banker') {
+   } else {
+        if (bankerClicks > 0) {
             displayAsColumn('row2', createCircle('red', 'empty'));
         } else {
             displayAsRow('row1', createCircle('red', 'empty'));
         }
     }
-    lastClicked = 'banker';
+    bankerClicks++;
+    playerClicks = 0;
 }
 
 function createCircle(color, type) {
