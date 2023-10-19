@@ -197,64 +197,6 @@
 
 
 <script>
-  let selectedOption = null;
-    let playerClicks = 0;
-  let bankerClicks = 0;
-
-function handleWinButtonClick() {
-    if (selectedOption === 'win') {
-        selectedOption = null;
-        document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color when deselected
-    } else {
-        selectedOption = 'win';
-        document.getElementById('winButton').style.backgroundColor = "#3e8e41"; // Update the button color when selected
-    }
-}
-
-
-  function handlePlayerButtonClick() {
-    const circle = document.createElement('div');
-    if (selectedOption === 'win') {
-      circle.classList.add('circle', 'blue', 'filled', 'blueBackground');
-      selectedOption = null; // Reset the win button
-      document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
-    } else {
-      circle.classList.add('circle', 'blue', 'empty');
-    }
-  
-    displayAsRow('row2', circle.cloneNode(true));
-  
-if (bankerClicks > 0) {
-        displayAsColumn('row1', circle.cloneNode(true));
-        bankerClicks = 0;
-    } else {
-        displayAsRow('row1', circle.cloneNode(true));
-    }
-    playerClicks++;
-}
-
-
-  function handleBankerButtonClick() {
-    const circle = document.createElement('div');
-    if (selectedOption === 'win') {
-      circle.classList.add('circle', 'red', 'filled', 'redBackground');
-      selectedOption = null; // Reset the win button
-      document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
-    } else {
-      circle.classList.add('circle', 'red', 'empty');
-    }
-    
-    displayAsRow('row1', circle.cloneNode(true));
-
-    if (playerClicks > 0) {
-        displayAsColumn('row2', circle.cloneNode(true));
-        playerClicks = 0;
-    } else {
-        displayAsRow('row2', circle.cloneNode(true));
-    }
-    bankerClicks++;
-}
-
  function displayAsRow(rowId, value) {
     const row = document.getElementById(rowId);
     const cells = row.getElementsByTagName('td');
@@ -290,6 +232,57 @@ function shiftCellsLeft(row) {
             cells[i + 5].innerText = "";
         }
     }
+}
+
+let lastClicked = null; // Variable to keep track of the last button clicked
+
+function handleWinButtonClick() {
+    const winButton = document.getElementById('winButton');
+    if (selectedOption === 'win') {
+        selectedOption = null;
+        winButton.style.backgroundColor = "#4CAF50"; // Reset the button color when deselected
+    } else {
+        selectedOption = 'win';
+        winButton.style.backgroundColor = "#3e8e41"; // Update the button color when selected
+    }
+}
+
+function handlePlayerButtonClick() {
+    if (selectedOption === 'win') {
+        const circle = createCircle('blue', 'filled');
+        displayAsRow('row2', circle);
+        selectedOption = null; // Reset the win button
+        document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
+    } else {
+        if (lastClicked === 'player') {
+            displayAsColumn('row2', createCircle('blue', 'empty'));
+        } else {
+            displayAsRow('row1', createCircle('blue', 'empty'));
+        }
+    }
+    lastClicked = 'player';
+}
+
+function handleBankerButtonClick() {
+    if (selectedOption === 'win') {
+        const circle = createCircle('red', 'filled');
+        displayAsRow('row1', circle);
+        selectedOption = null; // Reset the win button
+        document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
+    } else {
+        if (lastClicked === 'banker') {
+            displayAsColumn('row2', createCircle('red', 'empty'));
+        } else {
+            displayAsRow('row1', createCircle('red', 'empty'));
+        }
+    }
+    lastClicked = 'banker';
+}
+
+function createCircle(color, type) {
+    const circle = document.createElement('div');
+    circle.classList.add('circle', color, type);
+    return circle;
 }
 
 </script>
