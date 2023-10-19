@@ -50,8 +50,6 @@
 <div id="scoreboard"></div>
 
 <script>
-  let selectedOption = null;
-
   function handleWinButtonClick() {
     selectedOption = 'win';
     document.getElementById('winButton').style.backgroundColor = "#3e8e41";
@@ -60,25 +58,17 @@
   }
 
   function handlePlayerButtonClick() {
-    if (selectedOption === 'win') {
-      const scoreboard = document.getElementById('scoreboard');
-      const circle = document.createElement('span');
-      circle.classList.add('circle', 'blue');
-      scoreboard.appendChild(circle);
-      selectedOption = null;
-      document.getElementById('winButton').style.backgroundColor = "#4CAF50";
-    }
+    const scoreboard = document.getElementById('scoreboard');
+    const circle = document.createElement('span');
+    circle.classList.add('circle', 'blue');
+    scoreboard.appendChild(circle);
   }
 
   function handleBankerButtonClick() {
-    if (selectedOption === 'win') {
-      const scoreboard = document.getElementById('scoreboard');
-      const circle = document.createElement('span');
-      circle.classList.add('circle', 'red');
-      scoreboard.appendChild(circle);
-      selectedOption = null;
-      document.getElementById('winButton').style.backgroundColor = "#4CAF50";
-    }
+    const scoreboard = document.getElementById('scoreboard');
+    const circle = document.createElement('span');
+    circle.classList.add('circle', 'red');
+    scoreboard.appendChild(circle);
   }
 </script>
 
