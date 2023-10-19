@@ -21,7 +21,7 @@
     background-color: #3e8e41;
   }
 
- .circle {
+.circle {
     height: 20px;
     width: 20px;
     border-radius: 50%;
@@ -32,12 +32,14 @@
 
 .blue {
     border-color: blue;
-    background-color: blue; /* Fills the circle when it's the winning selection */
 }
 
 .red {
     border-color: red;
-    background-color: red; /* Fills the circle when it's the winning selection */
+}
+
+.filled {
+    background-color: #d3d3d3;
 }
 
 </style>
@@ -70,7 +72,7 @@ function handleWinButtonClick() {
     const scoreboard = document.getElementById('scoreboard');
     const circle = document.createElement('span');
     if (selectedOption === 'win') {
-      circle.classList.add('circle', 'blue');
+      circle.classList.add('circle', 'blue', 'filled');
       selectedOption = null; // Reset the win button
       document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
     } else {
@@ -83,7 +85,7 @@ function handleWinButtonClick() {
     const scoreboard = document.getElementById('scoreboard');
     const circle = document.createElement('span');
     if (selectedOption === 'win') {
-      circle.classList.add('circle', 'red');
+      circle.classList.add('circle', 'red', 'filled');
       selectedOption = null; // Reset the win button
       document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
     } else {
