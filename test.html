@@ -38,8 +38,12 @@
     border-color: red;
 }
 
-.filled {
-    background-color: #d3d3d3;
+.blueBackground {
+    background-color: blue;
+}
+
+.redBackground {
+    background-color: red;
 }
 
 </style>
@@ -72,7 +76,7 @@ function handleWinButtonClick() {
     const scoreboard = document.getElementById('scoreboard');
     const circle = document.createElement('span');
     if (selectedOption === 'win') {
-      circle.classList.add('circle', 'blue', 'filled');
+      circle.classList.add('circle', 'blue', 'filled', 'blueBackground');
       selectedOption = null; // Reset the win button
       document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
     } else {
@@ -85,7 +89,7 @@ function handleWinButtonClick() {
     const scoreboard = document.getElementById('scoreboard');
     const circle = document.createElement('span');
     if (selectedOption === 'win') {
-      circle.classList.add('circle', 'red', 'filled');
+      circle.classList.add('circle', 'red', 'filled', 'redBackground');
       selectedOption = null; // Reset the win button
       document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
     } else {
