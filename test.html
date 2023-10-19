@@ -1,270 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<style>
-
-  table {
-    border-collapse: collapse;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+   .container {
+    display: flex;
+    justify-content: center;
     margin-top: 20px;
-  }
+}
 
-  table, th, td {
+td {
+    width: 30px;
+    height: 30px;
     border: 1px solid black;
-  }
-
-  td {
-    padding: 10px;
-    text-align: center; /* Aligns content to the center within table cells */
-  }
-
-    .button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 12px;
-  }
-  
-  .buttonplayer {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: blue;
-    color: white;
-    border: none;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 12px;
-  }
-  
-  .buttonbanker {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: red;
-    color: white;
-    border: none;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 12px;
-  }
-
-  .button:active {
-    background-color: #3e8e41;
-  }
-
-  .circle {
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    display: inline-block;
-    margin: 5px;
-    border: 2px solid;
-  }
-
-  .blue {
-    border-color: blue;
-  }
-
-  .red {
-    border-color: red;
-  }
-
-  .blueBackground {
-    background-color: blue;
-  }
-
-  .redBackground {
-    background-color: red;
-  }
+}
 
 </style>
+
+    <title>Baccarat Scoreboard</title>
 </head>
 <body>
-<table id="scoreboard">
-  <tr id="row1">
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-   
-  </tr>
-  <tr id="row2">
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-   <tr id="row3">
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-   
-  </tr>
-  <tr id="row4">
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  
-   <tr id="row5">
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-   
-  </tr>
-  <tr id="row6">
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
- 
- 
-</table>
-
-<div style="margin-top: 20px;">
-
-<div>
-  <button class="button" id="winButton" onclick="handleWinButtonClick()">Win</button>
-  <button class="buttonplayer" id="playerButton" onclick="handlePlayerButtonClick()">Player</button>
-  <button class="buttonbanker" id="bankerButton" onclick="handleBankerButtonClick()">Banker</button>
-</div>
-
-
-<script>
-
-let selectedOption = null;
-let playerClicks = 0;
-  let bankerClicks = 0;
-  
-  const scoreboard = document.getElementById('scoreboard');
-
-
-function handleWinButtonClick() {
-    const winButton = document.getElementById('winButton');
-    if (selectedOption === 'win') {
-        selectedOption = null;
-        winButton.style.backgroundColor = "#4CAF50"; // Reset the button color when deselected
-    } else {
-        selectedOption = 'win';
-        winButton.style.backgroundColor = "#3e8e41"; // Update the button color when selected
-    }
-}
-
-function handlePlayerButtonClick() {
-    if (selectedOption === 'win') {
-        const circle = createCircle('blue', 'filled', 'blueBackground');
-        displayCell(circle, 'row1');
-        selectedOption = null; // Reset the win button
-        document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
-   } else {
-    const circle = createCircle('blue', 'empty');
-    displayCell(circle, 'row2');
-  }
-  // Reset banker clicks
-  bankerClicks = 0;
-}
-
-function handleBankerButtonClick() {
-    if (selectedOption === 'win') {
-        const circle = createCircle('red', 'filled','redBackground');
-        displayCell(circle, 'row1');
-        selectedOption = null; // Reset the win button
-        document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
-  } else {
-    const circle = createCircle('red', 'empty');
-    displayCell(circle, 'row2');
-  }
-  // Reset player clicks
-  playerClicks = 0;
-}
-  
-function displayCell(content, rowId) {
-    const row = scoreboard.insertRow();
-    const cell = row.insertCell();
-    cell.appendChild(content);
-
-    if (scoreboard.rows.length > 6) {
-        const lastRow = scoreboard.getElementsByTagName('tr')[scoreboard.rows.length - 1];
-        shiftCellsLeft(lastRow);
-        scoreboard.deleteRow(-1);
-    }
-}
-
-  
-  
-function createCircle(color, type, bgColor) {
-    const circle = document.createElement('div');
-    circle.classList.add('circle', color, type, bgColor);
-    return circle;
-}
-
-</script>
-
+    <div class="container">
+        <table id="scoreboard">
+            <!-- Table will be generated here -->
+        </table>
+    </div>
+    <button onclick="toggleWin('player')">Player</button>
+    <button onclick="toggleWin('banker')">Banker</button>
+    <button onclick="updateScore('player')">Player</button>
+    <button onclick="updateScore('banker')">Banker</button>
 </body>
+<script>
+let isWinSelected = false;
+let currentRow = 0;
+let currentCol = 0;
+let currentColor = '';
+
+const scoreboard = [
+    ['-', '-', '-', '-', '-', '-'],
+    ['-', '-', '-', '-', '-', '-'],
+    ['-', '-', '-', '-', '-', '-']
+];
+
+function toggleWin(player) {
+    isWinSelected = !isWinSelected;
+    currentColor = isWinSelected ? (player === 'player' ? 'blue' : 'red') : '';
+}
+
+function updateScore(player) {
+    if (isWinSelected) {
+        if (currentRow < 3 && currentCol < 6) {
+            if (scoreboard[currentRow][currentCol] === '-') {
+                scoreboard[currentRow][currentCol] = player === 'player' ? 'B' : 'R';
+                currentCol++;
+            }
+            updateTable();
+        }
+    } else {
+        if (currentCol < 6) {
+            if (scoreboard[currentRow][currentCol] === '-') {
+                scoreboard[currentRow][currentCol] = player === 'player' ? 'P' : 'B';
+                currentRow = (currentRow + 1) % 3;
+            }
+            updateTable();
+        }
+    }
+}
+
+function updateTable() {
+    const table = document.getElementById('scoreboard');
+    let html = '';
+    for (let i = 0; i < 3; i++) {
+        html += '<tr>';
+        for (let j = 0; j < 6; j++) {
+            if (scoreboard[i][j] === 'P') {
+                html += `<td style="background-color: blue;"></td>`;
+            } else if (scoreboard[i][j] === 'B') {
+                html += `<td style="background-color: red;"></td>`;
+            } else {
+                html += '<td></td>';
+            }
+        }
+        html += '</tr>';
+    }
+    table.innerHTML = html;
+}
+</script>
 </html>
