@@ -223,17 +223,12 @@ function handlePlayerButtonClick() {
         selectedOption = null; // Reset the win button
         document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
    } else {
-      if (playerClicks > 0) {
-        const circle = createCircle('blue', 'empty', null);
-        displayCell(circle, 'row2');
-      } else {
-        const circle = createCircle('blue', 'empty', null);
-        displayCell(circle, 'row1');
-      }
-    }
-    playerClicks++;
-    bankerClicks = 0;
+    const circle = createCircle('blue', 'empty');
+    displayCell(circle, 'row2');
   }
+  // Reset banker clicks
+  bankerClicks = 0;
+}
 
 function handleBankerButtonClick() {
     if (selectedOption === 'win') {
@@ -242,17 +237,12 @@ function handleBankerButtonClick() {
         selectedOption = null; // Reset the win button
         document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
   } else {
-      if (bankerClicks > 0) {
-        const circle = createCircle('red', 'empty', null);
-        displayCell(circle, 'row2');
-      } else {
-        const circle = createCircle('red', 'empty', null);
-        displayCell(circle, 'row1');
-      }
-    }
-    bankerClicks++;
-    playerClicks = 0;
+    const circle = createCircle('red', 'empty');
+    displayCell(circle, 'row2');
   }
+  // Reset player clicks
+  playerClicks = 0;
+}
   
 function displayCell(content, rowId) {
     const row = scoreboard.insertRow();
