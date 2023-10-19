@@ -52,20 +52,21 @@
 <script>
   let selectedOption = null;
 
-  function handleWinButtonClick() {
-    if (selectedOption !== 'win') {
-      selectedOption = 'win';
-      document.getElementById('winButton').style.backgroundColor = "#3e8e41";
+function handleWinButtonClick() {
+    if (selectedOption === 'win') {
+        selectedOption = null;
+        document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color when deselected
     } else {
-      selectedOption = null;
-      document.getElementById('winButton').style.backgroundColor = "#4CAF50";
+        selectedOption = 'win';
+        document.getElementById('winButton').style.backgroundColor = "#3e8e41"; // Update the button color when selected
     }
-  }
+}
+
 
   function handlePlayerButtonClick() {
     const scoreboard = document.getElementById('scoreboard');
     const circle = document.createElement('span');
-    if (selectedOption !== 'win') {
+    if (selectedOption === 'win') {
       circle.classList.add('circle', 'blue');
       selectedOption = null; // Reset the win button
       document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
@@ -78,7 +79,7 @@
   function handleBankerButtonClick() {
     const scoreboard = document.getElementById('scoreboard');
     const circle = document.createElement('span');
-    if (selectedOption !== 'win') {
+    if (selectedOption === 'win') {
       circle.classList.add('circle', 'red');
       selectedOption = null; // Reset the win button
       document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
