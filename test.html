@@ -16,6 +16,36 @@
     cursor: pointer;
     border-radius: 12px;
   }
+  
+    .buttonplayer {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: blue;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+  }
+  
+      .buttonbanker {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: red;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+  }
 
   .button:active {
     background-color: #3e8e41;
@@ -52,8 +82,8 @@
 
 <div>
   <button class="button" id="winButton" onclick="handleWinButtonClick()">Win</button>
-  <button class="button" id="playerButton" onclick="handlePlayerButtonClick()">Player</button>
-  <button class="button" id="bankerButton" onclick="handleBankerButtonClick()">Banker</button>
+  <button class="buttonplayer" id="playerButton" onclick="handlePlayerButtonClick()">Player</button>
+  <button class="buttonbanker" id="bankerButton" onclick="handleBankerButtonClick()">Banker</button>
 </div>
 
 <div id="scoreboard"></div>
