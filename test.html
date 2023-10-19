@@ -5,7 +5,6 @@
   .button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #4CAF50;
     color: white;
     border: none;
     text-align: center;
@@ -15,10 +14,19 @@
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 12px;
+    width: 100px;
   }
 
-  .button:active {
-    background-color: #3e8e41;
+  .playerButton {
+    background-color: blue;
+  }
+
+  .bankerButton {
+    background-color: red;
+  }
+
+  .winButton {
+    background-color: green;
   }
 
   .circle {
@@ -27,36 +35,54 @@
     border-radius: 50%;
     display: inline-block;
     margin: 5px;
+    border: 1px solid black;
   }
 
   .blue {
+    border: 1px solid black;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 5px;
     background-color: blue;
   }
 
   .red {
+    border: 1px solid black;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 5px;
     background-color: red;
+  }
+
+  .scoreboard {
+    border: 1px solid black;
+    width: 732px;
+    height: 300px;
+    display: flex;
+    flex-wrap: wrap;
   }
 </style>
 </head>
 <body>
 
 <div>
-  <button class="button" id="winButton" onclick="handleWinButtonClick()">Win</button>
-  <button class="button" id="playerButton" onclick="handlePlayerButtonClick()">Player</button>
-  <button class="button" id="bankerButton" onclick="handleBankerButtonClick()">Banker</button>
+  <button class="button playerButton" onclick="handlePlayerButtonClick()">Player</button>
+  <button class="button bankerButton" onclick="handleBankerButtonClick()">Banker</button>
+</div>
+<div>
+  <button class="button winButton" onclick="handleWinButtonClick()">Win</button>
 </div>
 
-<div id="scoreboard"></div>
+<div class="scoreboard" id="scoreboard"></div>
 
 <script>
   let selectedOption = null;
-
-  function handleWinButtonClick() {
-    selectedOption = 'win';
-    document.getElementById('winButton').style.backgroundColor = "#3e8e41";
-    document.getElementById('playerButton').style.backgroundColor = "#4CAF50";
-    document.getElementById('bankerButton').style.backgroundColor = "#4CAF50";
-  }
+  let playerCount = 0;
+  let bankerCount = 0;
 
   function handlePlayerButtonClick() {
     if (selectedOption === 'win') {
@@ -64,8 +90,15 @@
       const circle = document.createElement('span');
       circle.classList.add('circle', 'blue');
       scoreboard.appendChild(circle);
-      selectedOption = null;
-      document.getElementById('winButton').style.backgroundColor = "#4CAF50";
+      playerCount++;
+      if (bankerCount > 0) {
+        for (let i = 0; i < bankerCount; i++) {
+          const bankerCircle = document.createElement('span');
+          bankerCircle.classList.add('circle', 'red');
+          scoreboard.appendChild(bankerCircle);
+        }
+        bankerCount = 0;
+      }
     }
   }
 
@@ -75,9 +108,20 @@
       const circle = document.createElement('span');
       circle.classList.add('circle', 'red');
       scoreboard.appendChild(circle);
-      selectedOption = null;
-      document.getElementById('winButton').style.backgroundColor = "#4CAF50";
+      bankerCount++;
+      if (playerCount > 0) {
+        for (let i = 0; i < playerCount; i++) {
+          const playerCircle = document.createElement('span');
+          playerCircle.classList.add('circle', 'blue');
+          scoreboard.appendChild(playerCircle);
+        }
+        playerCount = 0;
+      }
     }
+  }
+
+  function handleWinButtonClick() {
+    selectedOption = 'win';
   }
 </script>
 
