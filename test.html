@@ -27,15 +27,22 @@
     border-radius: 50%;
     display: inline-block;
     margin: 5px;
-    border: 2px solid;
   }
 
   .blue {
-    border-color: blue;
+    background-color: blue;
   }
 
   .red {
-    border-color: red;
+    background-color: red;
+  }
+
+  .filled.blue {
+    background-color: blue;
+  }
+
+  .filled.red {
+    background-color: red;
   }
 </style>
 </head>
@@ -53,35 +60,34 @@
   let selectedOption = null;
 
   function handleWinButtonClick() {
-    selectedOption = 'win';
-    document.getElementById('winButton').style.backgroundColor = "#3e8e41";
-    document.getElementById('playerButton').style.backgroundColor = "#4CAF50";
-    document.getElementById('bankerButton').style.backgroundColor = "#4CAF50";
+    if (selectedOption === 'win') {
+      selectedOption = null;
+      document.getElementById('winButton').style.backgroundColor = "#4CAF50";
+    } else {
+      selectedOption = 'win';
+      document.getElementById('winButton').style.backgroundColor = "#3e8e41";
+    }
   }
 
   function handlePlayerButtonClick() {
-    if (selectedOption === 'win' || selectedOption === null) {
+    if (selectedOption === 'win') {
       const scoreboard = document.getElementById('scoreboard');
       const circle = document.createElement('span');
-      circle.classList.add('circle', 'blue');
+      circle.classList.add('circle', 'filled', 'blue');
       scoreboard.appendChild(circle);
-      if (selectedOption === 'win') {
-        selectedOption = null;
-        document.getElementById('winButton').style.backgroundColor = "#4CAF50";
-      }
+      selectedOption = null;
+      document.getElementById('winButton').style.backgroundColor = "#4CAF50";
     }
   }
 
   function handleBankerButtonClick() {
-    if (selectedOption === 'win' || selectedOption === null) {
+    if (selectedOption === 'win') {
       const scoreboard = document.getElementById('scoreboard');
       const circle = document.createElement('span');
-      circle.classList.add('circle', 'red');
+      circle.classList.add('circle', 'filled', 'red');
       scoreboard.appendChild(circle);
-      if (selectedOption === 'win') {
-        selectedOption = null;
-        document.getElementById('winButton').style.backgroundColor = "#4CAF50";
-      }
+      selectedOption = null;
+      document.getElementById('winButton').style.backgroundColor = "#4CAF50";
     }
   }
 </script>
