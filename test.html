@@ -214,8 +214,7 @@ function handleWinButtonClick() {
 
 
   function handlePlayerButtonClick() {
-    const scoreboard = document.getElementById('scoreboard');
-    const circle = document.createElement('span');
+    const circle = document.createElement('div');
     if (selectedOption === 'win') {
       circle.classList.add('circle', 'blue', 'filled', 'blueBackground');
       selectedOption = null; // Reset the win button
@@ -223,21 +222,21 @@ function handleWinButtonClick() {
     } else {
       circle.classList.add('circle', 'blue', 'empty');
     }
-    scoreboard.appendChild(circle);
   
-  if (bankerClicks > 0) {
-        displayAsColumn('row1', 'player');
+    displayAsRow('row2', circle.cloneNode(true));
+  
+if (bankerClicks > 0) {
+        displayAsColumn('row1', circle.cloneNode(true));
         bankerClicks = 0;
     } else {
-        displayAsRow('row1', 'player');
+        displayAsRow('row1', circle.cloneNode(true));
     }
     playerClicks++;
-  }
+}
 
 
   function handleBankerButtonClick() {
-    const scoreboard = document.getElementById('scoreboard');
-    const circle = document.createElement('span');
+    const circle = document.createElement('div');
     if (selectedOption === 'win') {
       circle.classList.add('circle', 'red', 'filled', 'redBackground');
       selectedOption = null; // Reset the win button
@@ -245,16 +244,17 @@ function handleWinButtonClick() {
     } else {
       circle.classList.add('circle', 'red', 'empty');
     }
-    scoreboard.appendChild(circle);
     
+    displayAsRow('row1', circle.cloneNode(true));
+
     if (playerClicks > 0) {
-        displayAsColumn('row2', 'banker');
+        displayAsColumn('row2', circle.cloneNode(true));
         playerClicks = 0;
     } else {
-        displayAsRow('row2', 'banker');
+        displayAsRow('row2', circle.cloneNode(true));
     }
     bankerClicks++;
-  }
+}
 
  function displayAsRow(rowId, value) {
     const row = document.getElementById(rowId);
