@@ -256,13 +256,13 @@ function handleWinButtonClick() {
     bankerClicks++;
   }
 
-  function displayAsRow(rowId, value) {
+ function displayAsRow(rowId, value) {
     const row = document.getElementById(rowId);
     const cells = row.getElementsByTagName('td');
     let columnIndex = -1;
     for (let i = 0; i < cells.length; i++) {
-        if (!cells[i].innerText) {
-            cells[i].innerText = value;
+        if (!cells[i].querySelector('.circle')) {
+            cells[i].appendChild(value);
             columnIndex = i;
             break;
         }
@@ -270,21 +270,21 @@ function handleWinButtonClick() {
     if (columnIndex === 11) {
         shiftCellsLeft(row);
     }
-  }
+}
 
-  function displayAsColumn(rowId, value) {
+function displayAsColumn(rowId, value) {
     const row = document.getElementById(rowId);
     const cells = row.getElementsByTagName('td');
     for (let i = 0; i < cells.length; i++) {
-        if (!cells[i].innerText) {
-            cells[i].innerText = value;
+        if (!cells[i].querySelector('.circle')) {
+            cells[i].appendChild(value);
             break;
         }
     }
-    if (rowId === 'row1' && cells[11].innerText) {
+    if (rowId === 'row1' && cells[11].querySelector('.circle')) {
         shiftCellsLeft(row);
     }
-  }
+}
 
   function shiftCellsLeft(row) {
     const cells = row.getElementsByTagName('td');
