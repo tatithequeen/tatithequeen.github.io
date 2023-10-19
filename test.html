@@ -50,6 +50,8 @@
 <div id="scoreboard"></div>
 
 <script>
+  let selectedOption = null;
+
   function handleWinButtonClick() {
     selectedOption = 'win';
     document.getElementById('winButton').style.backgroundColor = "#3e8e41";
@@ -58,17 +60,29 @@
   }
 
   function handlePlayerButtonClick() {
-    const scoreboard = document.getElementById('scoreboard');
-    const circle = document.createElement('span');
-    circle.classList.add('circle', 'blue');
-    scoreboard.appendChild(circle);
+    if (selectedOption === 'win' || selectedOption === null) {
+      const scoreboard = document.getElementById('scoreboard');
+      const circle = document.createElement('span');
+      circle.classList.add('circle', 'blue');
+      scoreboard.appendChild(circle);
+      if (selectedOption === 'win') {
+        selectedOption = null;
+        document.getElementById('winButton').style.backgroundColor = "#4CAF50";
+      }
+    }
   }
 
   function handleBankerButtonClick() {
-    const scoreboard = document.getElementById('scoreboard');
-    const circle = document.createElement('span');
-    circle.classList.add('circle', 'red');
-    scoreboard.appendChild(circle);
+    if (selectedOption === 'win' || selectedOption === null) {
+      const scoreboard = document.getElementById('scoreboard');
+      const circle = document.createElement('span');
+      circle.classList.add('circle', 'red');
+      scoreboard.appendChild(circle);
+      if (selectedOption === 'win') {
+        selectedOption = null;
+        document.getElementById('winButton').style.backgroundColor = "#4CAF50";
+      }
+    }
   }
 </script>
 
