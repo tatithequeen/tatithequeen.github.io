@@ -53,12 +53,12 @@
   let selectedOption = null;
 
   function handleWinButtonClick() {
-    if (selectedOption === 'win') {
-      selectedOption = null;
-      document.getElementById('winButton').style.backgroundColor = "#4CAF50";
-    } else {
+    if (selectedOption !== 'win') {
       selectedOption = 'win';
       document.getElementById('winButton').style.backgroundColor = "#3e8e41";
+    } else {
+      selectedOption = null;
+      document.getElementById('winButton').style.backgroundColor = "#4CAF50";
     }
   }
 
@@ -67,6 +67,8 @@
     const circle = document.createElement('span');
     if (selectedOption === 'win') {
       circle.classList.add('circle', 'blue');
+      selectedOption = null; // Reset the win button
+      document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
     } else {
       circle.classList.add('circle', 'blue', 'empty');
     }
@@ -78,6 +80,8 @@
     const circle = document.createElement('span');
     if (selectedOption === 'win') {
       circle.classList.add('circle', 'red');
+      selectedOption = null; // Reset the win button
+      document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
     } else {
       circle.classList.add('circle', 'red', 'empty');
     }
