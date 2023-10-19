@@ -27,15 +27,14 @@
     border-radius: 50%;
     display: inline-block;
     margin: 5px;
-    border: 2px solid;
   }
 
   .blue {
-    border-color: blue;
+    background-color: blue;
   }
 
   .red {
-    border-color: red;
+    background-color: red;
   }
 </style>
 </head>
@@ -68,8 +67,7 @@
     if (selectedOption === 'win') {
       circle.classList.add('circle', 'blue');
     } else {
-      circle.classList.add('circle', 'blue');
-      circle.style.backgroundColor = 'transparent';
+      circle.classList.add('circle', 'blue', 'empty');
     }
     scoreboard.appendChild(circle);
   }
@@ -80,8 +78,7 @@
     if (selectedOption === 'win') {
       circle.classList.add('circle', 'red');
     } else {
-      circle.classList.add('circle', 'red');
-      circle.style.backgroundColor = 'transparent';
+      circle.classList.add('circle', 'red', 'empty');
     }
     scoreboard.appendChild(circle);
   }
