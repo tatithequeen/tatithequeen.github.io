@@ -252,7 +252,7 @@ function handleWinButtonClick() {
 
 function handlePlayerButtonClick() {
     if (selectedOption === 'win') {
-        const circle = createCircle('blue', 'filled', 'bluebackground');
+        const circle = createCircle('blue', 'filled', 'blueBackground');
         displayAsRow('row2', circle);
         selectedOption = null; // Reset the win button
         document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
@@ -269,7 +269,7 @@ function handlePlayerButtonClick() {
 
 function handleBankerButtonClick() {
     if (selectedOption === 'win') {
-        const circle = createCircle('red', 'filled');
+        const circle = createCircle('red', 'filled','redBackground');
         displayAsRow('row1', circle);
         selectedOption = null; // Reset the win button
         document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
@@ -286,7 +286,7 @@ function handleBankerButtonClick() {
 
 function createCircle(color, type) {
     const circle = document.createElement('div');
-    circle.classList.add('circle', color, type);
+    circle.classList.add('circle', color, type, bgColor);
     return circle;
 }
 
