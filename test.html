@@ -67,12 +67,9 @@
     const circle = document.createElement('span');
     if (selectedOption === 'win') {
       circle.classList.add('circle', 'blue');
-      selectedOption = null;
-      document.getElementById('winButton').style.backgroundColor = "#4CAF50";
     } else {
       circle.classList.add('circle', 'blue');
       circle.style.backgroundColor = 'transparent';
-      circle.style.borderStyle = 'solid';
     }
     scoreboard.appendChild(circle);
   }
@@ -82,12 +79,9 @@
     const circle = document.createElement('span');
     if (selectedOption === 'win') {
       circle.classList.add('circle', 'red');
-      selectedOption = null;
-      document.getElementById('winButton').style.backgroundColor = "#4CAF50";
     } else {
       circle.classList.add('circle', 'red');
       circle.style.backgroundColor = 'transparent';
-      circle.style.borderStyle = 'solid';
     }
     scoreboard.appendChild(circle);
   }
