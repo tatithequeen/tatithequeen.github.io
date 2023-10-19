@@ -27,22 +27,15 @@
     border-radius: 50%;
     display: inline-block;
     margin: 5px;
+    border: 2px solid;
   }
 
   .blue {
-    background-color: blue;
+    border-color: blue;
   }
 
   .red {
-    background-color: red;
-  }
-
-  .filled.blue {
-    background-color: blue;
-  }
-
-  .filled.red {
-    background-color: red;
+    border-color: red;
   }
 </style>
 </head>
@@ -73,11 +66,13 @@
     const scoreboard = document.getElementById('scoreboard');
     const circle = document.createElement('span');
     if (selectedOption === 'win') {
-      circle.classList.add('circle', 'filled', 'blue');
+      circle.classList.add('circle', 'blue');
       selectedOption = null;
       document.getElementById('winButton').style.backgroundColor = "#4CAF50";
     } else {
       circle.classList.add('circle', 'blue');
+      circle.style.backgroundColor = 'transparent';
+      circle.style.borderStyle = 'solid';
     }
     scoreboard.appendChild(circle);
   }
@@ -86,11 +81,13 @@
     const scoreboard = document.getElementById('scoreboard');
     const circle = document.createElement('span');
     if (selectedOption === 'win') {
-      circle.classList.add('circle', 'filled', 'red');
+      circle.classList.add('circle', 'red');
       selectedOption = null;
       document.getElementById('winButton').style.backgroundColor = "#4CAF50";
     } else {
       circle.classList.add('circle', 'red');
+      circle.style.backgroundColor = 'transparent';
+      circle.style.borderStyle = 'solid';
     }
     scoreboard.appendChild(circle);
   }
