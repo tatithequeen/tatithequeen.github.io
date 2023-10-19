@@ -199,45 +199,11 @@
 <script>
 
 let selectedOption = null;
+let playerClicks = 0;
+  let bankerClicks = 0;
+  
+  const scoreboard = document.getElementById('scoreboard');
 
- function displayAsRow(rowId, value) {
-    const row = document.getElementById(rowId);
-    const cells = row.getElementsByTagName('td');
-    let columnIndex = 0; // Set the initial column index to 0 to always place the circle in the first cell
-    if (!cells[columnIndex].querySelector('.circle')) {
-        cells[columnIndex].appendChild(value);
-    } else {
-        shiftCellsLeft(row);
-        cells[columnIndex].appendChild(value);
-    }
-}
-
-function displayAsColumn(rowId, value) {
-    const row = document.getElementById(rowId);
-    const cells = row.getElementsByTagName('td');
-    if (!cells[0].querySelector('.circle')) {
-        cells[0].appendChild(value);
-    } else {
-        shiftCellsLeft(row);
-        cells[0].appendChild(value);
-    }
-}
-
-function shiftCellsLeft(row) {
-    const cells = row.getElementsByTagName('td');
-    for (let i = 0; i < 5; i++) {
-        if (cells[i + 5].querySelector('.circle')) {
-            const circleColor = cells[i + 5].querySelector('.circle').classList.contains('blue') ? 'blue' : 'red';
-            cells[i].innerHTML = `<div class="circle ${circleColor}"></div>`;
-            cells[i + 5].innerText = "";
-        } else {
-            cells[i].innerText = cells[i + 5].innerText;
-            cells[i + 5].innerText = "";
-        }
-    }
-}
-
-let lastClicked = null; // Variable to keep track of the last button clicked
 
 function handleWinButtonClick() {
     const winButton = document.getElementById('winButton');
@@ -253,38 +219,56 @@ function handleWinButtonClick() {
 function handlePlayerButtonClick() {
     if (selectedOption === 'win') {
         const circle = createCircle('blue', 'filled', 'blueBackground');
-        displayAsRow('row2', circle);
+        displayCell(circle, 'row1');
         selectedOption = null; // Reset the win button
         document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
    } else {
-        if (playerClicks > 0) {
-            displayAsColumn('row2', createCircle('blue', 'empty'));
-        } else {
-            displayAsRow('row1', createCircle('blue', 'empty'));
-        }
+      if (playerClicks > 0) {
+        const circle = createCircle('blue', 'empty', null);
+        displayCell(circle, 'row2');
+      } else {
+        const circle = createCircle('blue', 'empty', null);
+        displayCell(circle, 'row1');
+      }
     }
     playerClicks++;
     bankerClicks = 0;
-}
+  }
 
 function handleBankerButtonClick() {
     if (selectedOption === 'win') {
         const circle = createCircle('red', 'filled','redBackground');
-        displayAsRow('row1', circle);
+        displayCell(circle, 'row1');
         selectedOption = null; // Reset the win button
         document.getElementById('winButton').style.backgroundColor = "#4CAF50"; // Reset the button color
-   } else {
-        if (bankerClicks > 0) {
-            displayAsColumn('row2', createCircle('red', 'empty'));
-        } else {
-            displayAsRow('row1', createCircle('red', 'empty'));
-        }
+  } else {
+      if (bankerClicks > 0) {
+        const circle = createCircle('red', 'empty', null);
+        displayCell(circle, 'row2');
+      } else {
+        const circle = createCircle('red', 'empty', null);
+        displayCell(circle, 'row1');
+      }
     }
     bankerClicks++;
     playerClicks = 0;
+  }
+  
+function displayCell(content, rowId) {
+    const row = scoreboard.insertRow();
+    const cell = row.insertCell();
+    cell.appendChild(content);
+
+    if (scoreboard.rows.length > 6) {
+        const lastRow = scoreboard.getElementsByTagName('tr')[scoreboard.rows.length - 1];
+        shiftCellsLeft(lastRow);
+        scoreboard.deleteRow(-1);
+    }
 }
 
-function createCircle(color, type) {
+  
+  
+function createCircle(color, type, bgColor) {
     const circle = document.createElement('div');
     circle.classList.add('circle', color, type, bgColor);
     return circle;
