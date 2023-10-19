@@ -278,18 +278,20 @@ function displayAsColumn(rowId, value) {
     }
 }
 
-    if (rowId === 'row1' && cells[11].querySelector('.circle')) {
-        shiftCellsLeft(row);
+function shiftCellsLeft(row) {
+    const cells = row.getElementsByTagName('td');
+    for (let i = 0; i < 5; i++) {
+        if (cells[i + 5].querySelector('.circle')) {
+            const circleColor = cells[i + 5].querySelector('.circle').classList.contains('blue') ? 'blue' : 'red';
+            cells[i].innerHTML = `<div class="circle ${circleColor}"></div>`;
+            cells[i + 5].innerText = "";
+        } else {
+            cells[i].innerText = cells[i + 5].innerText;
+            cells[i + 5].innerText = "";
+        }
     }
 }
 
-  function shiftCellsLeft(row) {
-    const cells = row.getElementsByTagName('td');
-    for (let i = 0; i < 5; i++) {
-        cells[i].innerText = cells[i + 5].innerText;
-        cells[i + 5].innerText = "";
-    }
-  }
 </script>
 
 </body>
