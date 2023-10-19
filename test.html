@@ -259,28 +259,26 @@ function handleWinButtonClick() {
  function displayAsRow(rowId, value) {
     const row = document.getElementById(rowId);
     const cells = row.getElementsByTagName('td');
-    let columnIndex = -1;
-    for (let i = 0; i < cells.length; i++) {
-        if (!cells[i].querySelector('.circle')) {
-            cells[i].appendChild(value);
-            columnIndex = i;
-            break;
-        }
-    }
-    if (columnIndex === 11) {
+    let columnIndex = 0; // Set the initial column index to 0 to always place the circle in the first cell
+    if (!cells[columnIndex].querySelector('.circle')) {
+        cells[columnIndex].appendChild(value);
+    } else {
         shiftCellsLeft(row);
+        cells[columnIndex].appendChild(value);
     }
 }
 
 function displayAsColumn(rowId, value) {
     const row = document.getElementById(rowId);
     const cells = row.getElementsByTagName('td');
-    for (let i = 0; i < cells.length; i++) {
-        if (!cells[i].querySelector('.circle')) {
-            cells[i].appendChild(value);
-            break;
-        }
+    if (!cells[0].querySelector('.circle')) {
+        cells[0].appendChild(value);
+    } else {
+        shiftCellsLeft(row);
+        cells[0].appendChild(value);
     }
+}
+
     if (rowId === 'row1' && cells[11].querySelector('.circle')) {
         shiftCellsLeft(row);
     }
