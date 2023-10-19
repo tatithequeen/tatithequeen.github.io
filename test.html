@@ -70,25 +70,29 @@
   }
 
   function handlePlayerButtonClick() {
+    const scoreboard = document.getElementById('scoreboard');
+    const circle = document.createElement('span');
     if (selectedOption === 'win') {
-      const scoreboard = document.getElementById('scoreboard');
-      const circle = document.createElement('span');
       circle.classList.add('circle', 'filled', 'blue');
-      scoreboard.appendChild(circle);
       selectedOption = null;
       document.getElementById('winButton').style.backgroundColor = "#4CAF50";
+    } else {
+      circle.classList.add('circle', 'blue');
     }
+    scoreboard.appendChild(circle);
   }
 
   function handleBankerButtonClick() {
+    const scoreboard = document.getElementById('scoreboard');
+    const circle = document.createElement('span');
     if (selectedOption === 'win') {
-      const scoreboard = document.getElementById('scoreboard');
-      const circle = document.createElement('span');
       circle.classList.add('circle', 'filled', 'red');
-      scoreboard.appendChild(circle);
       selectedOption = null;
       document.getElementById('winButton').style.backgroundColor = "#4CAF50";
+    } else {
+      circle.classList.add('circle', 'red');
     }
+    scoreboard.appendChild(circle);
   }
 </script>
 
