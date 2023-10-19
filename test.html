@@ -2,7 +2,21 @@
 <html>
 <head>
 <style>
-  
+
+  table {
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  table, th, td {
+    border: 1px solid black;
+  }
+
+  td {
+    padding: 10px;
+    text-align: center; /* Aligns content to the center within table cells */
+  }
+
   .button {
     display: inline-block;
     padding: 10px 20px;
@@ -80,7 +94,100 @@
 </style>
 </head>
 <body>
+<table id="scoreboard">
+  <tr id="row1">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+   
+  </tr>
+  <tr id="row2">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+   <tr id="row3">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+   
+  </tr>
+  <tr id="row4">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  
+   <tr id="row5">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+   
+  </tr>
+  <tr id="row6">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+ 
+ 
+</table>
 
+<div style="margin-top: 20px;">
 
 <div>
   <button class="button" id="winButton" onclick="handleWinButtonClick()">Win</button>
@@ -92,6 +199,8 @@
 
 <script>
   let selectedOption = null;
+    let playerClicks = 0;
+  let bankerClicks = 0;
 
 function handleWinButtonClick() {
     if (selectedOption === 'win') {
@@ -115,7 +224,16 @@ function handleWinButtonClick() {
       circle.classList.add('circle', 'blue', 'empty');
     }
     scoreboard.appendChild(circle);
+  
+  if (bankerClicks > 0) {
+        displayAsColumn('row1', 'player');
+        bankerClicks = 0;
+    } else {
+        displayAsRow('row1', 'player');
+    }
+    playerClicks++;
   }
+
 
   function handleBankerButtonClick() {
     const scoreboard = document.getElementById('scoreboard');
@@ -128,6 +246,52 @@ function handleWinButtonClick() {
       circle.classList.add('circle', 'red', 'empty');
     }
     scoreboard.appendChild(circle);
+    
+    if (playerClicks > 0) {
+        displayAsColumn('row2', 'banker');
+        playerClicks = 0;
+    } else {
+        displayAsRow('row2', 'banker');
+    }
+    bankerClicks++;
+  }
+
+  function displayAsRow(rowId, value) {
+    const row = document.getElementById(rowId);
+    const cells = row.getElementsByTagName('td');
+    let columnIndex = -1;
+    for (let i = 0; i < cells.length; i++) {
+        if (!cells[i].innerText) {
+            cells[i].innerText = value;
+            columnIndex = i;
+            break;
+        }
+    }
+    if (columnIndex === 11) {
+        shiftCellsLeft(row);
+    }
+  }
+
+  function displayAsColumn(rowId, value) {
+    const row = document.getElementById(rowId);
+    const cells = row.getElementsByTagName('td');
+    for (let i = 0; i < cells.length; i++) {
+        if (!cells[i].innerText) {
+            cells[i].innerText = value;
+            break;
+        }
+    }
+    if (rowId === 'row1' && cells[11].innerText) {
+        shiftCellsLeft(row);
+    }
+  }
+
+  function shiftCellsLeft(row) {
+    const cells = row.getElementsByTagName('td');
+    for (let i = 0; i < 5; i++) {
+        cells[i].innerText = cells[i + 5].innerText;
+        cells[i + 5].innerText = "";
+    }
   }
 </script>
 
